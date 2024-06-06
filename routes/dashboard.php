@@ -1,9 +1,8 @@
 <?php
 
+use App\Http\Controllers\Dashboard\DashboardController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('dashboard')->group(function () {
-    Route::get('/', function () {
-       return "welcome to dashboard";
-    });
-});
+ 
+Route::resource('backend', DashboardController::class);
+
