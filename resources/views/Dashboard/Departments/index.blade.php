@@ -46,7 +46,9 @@
 									<tr>
 										<th class="wd-10p">#</th>
 										<th class="wd-20p">Name</th>
+										<th class="wd-20p">description</th>
 										<th class="wd-20p">Created_at</th>
+										<th class="wd-20p">Process</th>
 									</tr>
 							</thead>
                             <tbody>
@@ -54,6 +56,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td><a href="{{ route('Departments.show', $department->id) }}">{{ $department->name }}</a></td>
+									<td><a href="{{ route('Departments.show', $department->id) }}">{{ $department->description }}</a></td>
 									<td>{{ $department->created_at ? $department->created_at->diffForHumans() : '' }}</td>
                                     <td>
                                         <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"  data-toggle="modal" href="#edit{{ $department->id }}"><i class="las la-pen"></i></a>

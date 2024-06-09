@@ -18,6 +18,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     {
         Department::create([
             'name' => $request->input('name'),
+            'description' => $request->input('description'),
         ]);
 
         session()->flash('add');
@@ -29,6 +30,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         $department = Department::findOrFail($request->id);
         $department->update([
             'name' => $request->input('name'),
+            'description' => $request->input('description'),
         ]);
         session()->flash('edit');
         return redirect()->route('Departments.index');
