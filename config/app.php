@@ -2,6 +2,7 @@
 
 return [
 
+    App\Providers\RepositoryServiceProvider::class,
     /*
     |--------------------------------------------------------------------------
     | Application Name
