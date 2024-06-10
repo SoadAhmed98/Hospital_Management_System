@@ -48,7 +48,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     {
         $doctors =Department::findOrFail($id)->doctors;
         $department = Department::findOrFail($id);
-        return view('Dashboard.Departments.show_doctors',compact('doctors','department'));
+       // return view('Dashboard.Departments.show_doctors',compact('doctors','department'));
     }
 
 }
