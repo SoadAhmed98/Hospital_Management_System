@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\DepartmentController;
-use App\Http\Controllers\Dashboard\DoctorController;
-
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Dashboard\DashboardController;
 
- 
+use App\Http\Controllers\Dashboard\DepartmentController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+
 
 Route::group(
     [
@@ -26,7 +27,7 @@ Route::group(
             
             //############################# end Doctors route ######################################
         
-        require __DIR__.'/auth.php';
+       
         Route::resource('backend', DashboardController::class);
 
 
