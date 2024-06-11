@@ -13,10 +13,14 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); // إضافة الحقل name
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->foreignId('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->string('phone');
             $table->boolean('status')->default(1);
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
-            $table->timestamps();
+            $table->timestamps(); // إضافة حقل created_at و updated_at
         });
     }
 
