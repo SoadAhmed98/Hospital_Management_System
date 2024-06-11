@@ -17,7 +17,15 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word,
+            'name' => $this->faker->unique()->randomElement([
+                'Neurology Department',
+                'Surgery Department',
+                'Pediatrics Department',
+                'Obstetrics and Gynecology Department',
+                'Ophthalmology Department',
+                'Internal Medicine Department'
+            ]),
+            'description' => $this->faker->paragraph,
         ];
     }
 }
