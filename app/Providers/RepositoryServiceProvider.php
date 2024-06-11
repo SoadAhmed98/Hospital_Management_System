@@ -7,7 +7,10 @@ use App\Interfaces\Departments\DepartmentRepositoryInterface;
 use App\Repository\Departments\DepartmentRepository;
 use App\Interfaces\Departments\DepartmentAPIRepositoryInterface;
 use App\Repository\Departments\DepartmentAPIRepository;
-
+use App\Interfaces\Doctors\DoctorRepositoryInterface;
+use App\Repository\Doctors\DoctorRepository;
+use App\Interfaces\Doctors\DoctorAPIRepositoryInterface;
+use App\Repository\Doctors\DoctorAPIRepository;
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -19,6 +22,8 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(DepartmentRepositoryInterface::class, DepartmentRepository::class);
         $this->app->bind(DepartmentAPIRepositoryInterface::class, DepartmentAPIRepository::class);
+        $this->app->bind(DoctorRepositoryInterface::class, DoctorRepository::class);
+        $this->app->bind(DoctorAPIRepositoryInterface::class, DoctorAPIRepository::class);
 
     }
 

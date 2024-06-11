@@ -13,9 +13,15 @@ return new class extends Migration
     {
         Schema::create('doctors', function (Blueprint $table) {
             $table->id();
+            $table->string('name'); 
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
+            $table->string('phone');
+            $table->decimal('price',8,2);
             $table->boolean('status')->default(1);
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->string('appointments');
             $table->timestamps();
         });
     }
