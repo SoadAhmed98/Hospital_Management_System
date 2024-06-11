@@ -2,28 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Department;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Doctor extends Model
+class LaboratoryEmployee extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory;
-    public $fillable= ['email','email_verified_at','password','phone','price','name','appointments'];
+    use HasFactory, Notifiable;
 
-     /**
-     * Get the Doctor's image.
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
      */
-    public function image()
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
-     // One To One get section of Doctor
-     public function department()
-     {
-         return $this->belongsTo(Department::class);
-     }
-         /**
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
