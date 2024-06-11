@@ -2,28 +2,27 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Department>
- */
 class DepartmentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Department::class;
+
+    public function definition()
     {
         return [
-            'name' => $this->faker->unique()->randomElement([
+            'name' => $this->faker->randomElement([
                 'Neurology Department',
                 'Surgery Department',
                 'Pediatrics Department',
                 'Obstetrics and Gynecology Department',
                 'Ophthalmology Department',
-                'Internal Medicine Department'
+                'Internal Medicine Department',
+                'Cardiology Department',
+                'Dermatology Department',
+                'Endocrinology Department',
+                'Gastroenterology Department'
             ]),
             'description' => $this->faker->paragraph,
         ];
