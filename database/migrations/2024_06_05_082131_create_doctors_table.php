@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->string('phone');
+            $table->decimal('price',8,2);
             $table->boolean('status')->default(1);
-            $table->timestamps(); // إضافة حقل created_at و updated_at
+            $table->string('appointments');
+            $table->timestamps();
         });
     }
 

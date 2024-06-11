@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Department;
+use App\Models\Image;
 
 use Illuminate\Database\Seeder;
 
@@ -24,9 +25,9 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         Department::factory()->count(5)->create();
-
-        // إنشاء 10 سجلات للأطباء
         Doctor::factory(10)->create();
+        Image::factory()->count(10)->create();
+
 
        
     }

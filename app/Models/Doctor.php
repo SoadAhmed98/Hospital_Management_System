@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Department;
 
 class Doctor extends Model
 {
@@ -17,4 +18,9 @@ class Doctor extends Model
     {
         return $this->morphOne(Image::class, 'imageable');
     }
+     // One To One get section of Doctor
+     public function department()
+     {
+         return $this->belongsTo(Department::class);
+     }
 }

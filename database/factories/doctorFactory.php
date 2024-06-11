@@ -26,8 +26,10 @@ class DoctorFactory extends Factory
             'email_verified_at' => now(),
             'password' => bcrypt('password'), // تأكد من استخدام كلمة مرور مشفرة
             'phone' => $this->faker->phoneNumber,
-            // 'price' => $this->faker->randomElement([100, 200, 300, 400, 500]),
+            'price' => $this->faker->randomElement([100, 200, 300, 400, 500]),
             'department_id' => Department::factory(),
+            'appointments' => $this->faker->name,
+
         ];
     }
 }
