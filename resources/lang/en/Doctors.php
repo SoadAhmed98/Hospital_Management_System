@@ -20,8 +20,8 @@ return array (
   'new_password' => 'New Password',
   'password' => 'password',
   'phone' => 'phone',
-  'price' => 'price',
-  'section' => 'Section',
+  'fees' => 'Fees',
+  'departments' => 'Departments',
   'submit' => 'submit',
   'update_password' => 'Update Password',
 );

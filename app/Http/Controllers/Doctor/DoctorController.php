@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Doctor;
 use App\Models\Doctor;
 use App\Interfaces\Doctors\DoctorRepositoryInterface;
 

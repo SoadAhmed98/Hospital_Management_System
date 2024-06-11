@@ -15,7 +15,7 @@ class PasswordResetLinkController extends Controller
      */
     public function create(): View
     {
-        return view('Dashboard.Doctor.auth.forgot-password');
+        return view('Dashboard.Doctors.auth.forgot-password');
     }
 
     /**

@@ -46,10 +46,10 @@
                                 <th>#</th>
                                 <th >{{trans('doctors.name')}}</th>
                                 <th >{{trans('doctors.email')}}</th>
-                                <th>{{trans('doctors.section')}}</th>
+                                <th>{{trans('doctors.departments')}}</th>
                                 <th >{{trans('doctors.phone')}}</th>
                                 <th >{{trans('doctors.appointments')}}</th>
-                                <th>{{trans('doctors.price')}}</th>
+                                <th>{{trans('doctors.fees')}}</th>
                                 <th >{{trans('doctors.Status')}}</th>
                                 <th>{{trans('doctors.created_at')}}</th>
                                 <th>{{trans('doctors.Processes')}}</th>
@@ -64,7 +64,7 @@
                                   <td>{{ $doctor->department->name}}</td>
                                   <td>{{ $doctor->phone}}</td>
                                   <td>{{ $doctor->appointments}}</td>
-                                  <td>{{ $doctor->price}}</td>
+                                  <td>{{ $doctor->consultation_fees}}</td>
                                   <td>
                                       <div class="dot-label bg-{{$doctor->status == 1 ? 'success':'danger'}} ml-1"></div>
                                       {{$doctor->status == 1 ? trans('doctors.Enabled'):trans('doctors.Not_enabled')}}

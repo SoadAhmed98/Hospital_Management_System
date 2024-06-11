@@ -20,8 +20,8 @@ return array (
   'new_password' => 'كلمة المرورالجديدة',
   'password' => 'كلمة المرور',
   'phone' => 'رقم الهاتف',
-  'price' => 'سعر الكشف',
-  'section' => 'القسم',
+  'fees' => 'سعر الكشف',
+  'departments' => 'القسم',
   'submit' => 'تاكيد',
   'update_password' => 'تغير كلمة المرور',
 );

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Dashboard\DoctorController;
+use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 
 use App\Http\Controllers\Dashboard\DepartmentController;
