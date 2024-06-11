@@ -22,13 +22,13 @@ class DoctorFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'), // تأكد من استخدام كلمة مرور مشفرة
-            'phone' => $this->faker->phoneNumber,
-            'price' => $this->faker->randomElement([100, 200, 300, 400, 500]),
-            'department_id' => Department::factory(),
-            'appointments' => $this->faker->name,
+        'email' => $this->faker->unique()->safeEmail(),
+        'email_verified_at' => now(),
+        'password' => bcrypt('password'), // Ensure the password is encrypted
+        'phone' => $this->faker->phoneNumber,
+        'consultation_fee' => $this->faker->randomElement([100, 200, 300, 400, 500]),
+        'department_id' => Department::factory(),
+        'appointments' => json_encode($this->faker->randomElements(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], $this->faker->numberBetween(1, 7)))
 
         ];
     }
