@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Doctor;
+use App\Models\Department;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,18 +23,11 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        Department::factory()->count(5)->create();
 
         // إنشاء 10 سجلات للأطباء
         Doctor::factory(10)->create();
 
-        // إنشاء طبيب تجريبي
-        Doctor::factory()->create([
-            // 'name' => 'Test Doctor',
-            'email' => 'testdoctor@example.com',
-            'password' => bcrypt('password'), // تأكد من استخدام كلمة مرور مشفرة
-            'phone' => '123-456-7890',
-            'price' => 300,
-            // 'section_id' => 1, // تعيين القسم المناسب
-        ]);
+       
     }
 }
