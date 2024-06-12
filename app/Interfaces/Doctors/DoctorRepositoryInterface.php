@@ -19,4 +19,8 @@ interface DoctorRepositoryInterface
     // destroy Doctor
     public function destroy($request);
 
+     // edit Doctor
+     public function edit($id);
+
+
 }

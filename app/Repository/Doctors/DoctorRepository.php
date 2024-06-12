@@ -4,6 +4,7 @@ namespace App\Repository\Doctors;
 use App\Interfaces\Doctors\DoctorRepositoryInterface;
 use App\Models\Doctor;
 use App\Models\Department;
+use App\Models\WorkSchedule;
 use App\Traits\UploadTrait;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -63,11 +64,55 @@ class DoctorRepository implements DoctorRepositoryInterface
         }
     }
     
-
+    public function edit($id)
+    {
+        $departments = Department::all();
+        $workschedule = WorkSchedule::all();
+        $doctor = Doctor::findorfail($id);
+        return view('Dashboard.Doctors.edit',compact('departments','workschedule','doctor'));
+    }
+    
     public function update($request)
     {
-        // Implement the update logic if needed
+        // dd($request);
+        DB::beginTransaction();
+
+        try {
+
+            $doctor = Doctor::findorfail($request->id);
+
+            $doctor->email = $request->email;
+            $doctor->department_id = $request->department_id;
+            $doctor->phone = $request->phone;
+            $doctor->name = $request->name;
+            $doctor->consultation_fees = $request->fees;
+            $doctor->save();
+
+            // update pivot tABLE
+            $doctor->doctorworkschedule()->sync($request->workschedule);
+
+            // update photo
+            if ($request->has('photo')){
+                // Delete old photo
+                if ($doctor->image){
+                    $old_img = $doctor->image->filename;
+                    $this->Delete_attachment('upload_image','doctors/'.$old_img,$request->id);
+                }
+                //Upload img
+                $this->verifyAndStoreImage($request,'photo','doctors','upload_image',$request->id,'App\Models\Doctor');
+            }
+
+            DB::commit();
+            session()->flash('edit');
+            return redirect()->route('Doctors.index');
+
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
+
 
     public function destroy($request)
     {
@@ -102,4 +147,6 @@ class DoctorRepository implements DoctorRepositoryInterface
         }
   
       }
+
+
 }
