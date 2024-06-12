@@ -127,6 +127,8 @@
                               </tr>
                               @include('Dashboard.Doctors.delete')
                               @include('Dashboard.Doctors.delete_select')
+                              @include('Dashboard.Doctors.update_password')
+                              @include('Dashboard.Doctors.update_status')
                           @endforeach
                             </tbody>
                         </table>

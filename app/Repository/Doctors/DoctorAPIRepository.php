@@ -2,8 +2,9 @@
 
 namespace App\Repository\Departments;
 
-use App\Interfaces\Departments\DoctorAPIRepositoryInterface;
 use App\Models\Doctor;
+use Illuminate\Support\Facades\Hash;
+use App\Interfaces\Departments\DoctorAPIRepositoryInterface;
 
 class DoctorAPIRepository implements DoctorAPIRepositoryInterface
 {public function index()
@@ -24,20 +25,5 @@ class DoctorAPIRepository implements DoctorAPIRepositoryInterface
         ]);
     }
 
-    // public function update($request, $id)
-    // {
-    //     $department = Department::findOrFail($id);
-    //     $department->update([
-    //         'name' => $request->input('name'),
-    //         'description' => $request->input('description'),
-    //     ]);
-    //     return $department;
-    // }
 
-    // public function destroy($id)
-    // {
-    //     $department = Department::findOrFail($id);
-    //     $department->delete();
-    //     return $department;
-    // }
 }

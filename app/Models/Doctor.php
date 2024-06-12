@@ -9,7 +9,7 @@ use App\Models\Department;
 class Doctor extends Model
 {
     use HasFactory;
-    public $fillable= ['email','email_verified_at','password','phone','consultation_fees','name','department_id'];
+    public $fillable= ['email','email_verified_at','password','phone','consultation_fees','name','department_id','status'];
    
      /**
      * Get the Doctor's image.

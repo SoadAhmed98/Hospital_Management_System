@@ -60,4 +60,22 @@ class DoctorController extends Controller
     {
         return $this->Doctors->destroy($request);
     }
+
+    public function update_password(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6'
+        ]);
+
+        return $this->Doctors->update_password($request);
+    }
+
+    public function update_status(Request $request)
+    {
+        $request->validate([
+            'status' => 'required|in:0,1',
+        ]);
+        return $this->Doctors->update_status($request);
+    }
 }
