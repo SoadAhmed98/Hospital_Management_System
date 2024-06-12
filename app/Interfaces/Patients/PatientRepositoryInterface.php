@@ -13,6 +13,8 @@ interface PatientRepositoryInterface
 
     // Update Patients
     public function update($request);
+    
+    public function create();
 
     // destroy Patients
     public function destroy($request);

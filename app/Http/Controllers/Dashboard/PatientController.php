@@ -3,45 +3,58 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePatientRequest;
 use App\Interfaces\Patients\PatientRepositoryInterface;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
 {
 
-    private $Patients;
+    private $Patient;
 
-    public function __construct(PatientRepositoryInterface $Patients)
+    public function __construct(PatientRepositoryInterface $Patient)
     {
-        $this->Patients = $Patients;
+        $this->Patient = $Patient;
     }
 
     public function index()
     {
-      return  $this->Patients->index();
-
+        return $this->Patient->index();
     }
+
+
+    public function create()
+    {
+        return$this->Patient->create();
+    }
+
+
+    public function store(StorePatientRequest $request)
+    {
+       return $this->Patient->store($request);
+    }
+
 
     public function show($id)
     {
-       return $this->Patients->show($id);
+        return $this->Patient->show($id);
     }
 
 
-    public function store(Request $request)
+    public function edit($id)
     {
-        return $this->Patients->store($request);
+        return $this->Patient->edit($id);
     }
 
 
-    public function update(Request $request)
+    public function update(StorePatientRequest $request)
     {
-        return $this->Patients->update($request);
+        return $this->Patient->update($request);
     }
 
 
     public function destroy(Request $request)
     {
-        return $this->Patients->destroy($request);
+       return $this->Patient->destroy($request);
     }
 }

@@ -6,7 +6,8 @@ use App\Interfaces\Patients\PatientAPIRepositoryInterface;
 use App\Models\Patient;
 
 class PatientAPIRepository implements PatientAPIRepositoryInterface
-{public function index()
+{
+    public function index()
     {
         return Patient::all();
     }
@@ -20,7 +21,13 @@ class PatientAPIRepository implements PatientAPIRepositoryInterface
     {
         return Patient::create([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'birth_date' => $request->input('birth_date'),
+            'phone' => $request->input('phone'),
+            'gender' => $request->input('gender'),
+            'blood_group' => $request->input('blood_group'),
+            'address' => $request->input('address'),
         ]);
     }
 
@@ -29,7 +36,13 @@ class PatientAPIRepository implements PatientAPIRepositoryInterface
         $patient = Patient::findOrFail($id);
         $patient->update([
             'name' => $request->input('name'),
-            'description' => $request->input('description'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+            'birth_date' => $request->input('birth_date'),
+            'phone' => $request->input('phone'),
+            'gender' => $request->input('gender'),
+            'blood_group' => $request->input('blood_group'),
+            'address' => $request->input('address'),
         ]);
         return $patient;
     }

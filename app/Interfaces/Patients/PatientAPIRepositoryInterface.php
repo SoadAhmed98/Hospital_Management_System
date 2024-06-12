@@ -13,6 +13,8 @@ interface PatientAPIRepositoryInterface
 
     public function update($request, $id);
 
+    public function create();
+
     public function destroy($id);
 
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Interfaces\patients\PatientAPIRepositoryInterface;
+use App\Interfaces\Patients\PatientAPIRepositoryInterface;
 use Illuminate\Http\Request;
 
 class APIPatientController extends Controller
@@ -25,12 +25,12 @@ class APIPatientController extends Controller
         return response()->json($this->patients->show($id));
     }
 
-    public function store(Request $request)
+    public function store(StorePatientRequest $request)
     {
         return response()->json($this->patients->store($request), 201);
     }
 
-    public function update(Request $request, $id)
+    public function update(StorePatientRequest $request, $id)
     {
         return response()->json($this->patients->update($request, $id));
     }
