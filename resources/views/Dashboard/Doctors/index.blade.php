@@ -54,6 +54,7 @@
                                 <th>{{trans('doctors.departments')}}</th>
                                 <th >{{trans('doctors.phone')}}</th>
                                 <th>{{trans('doctors.fees')}}</th>
+                                <th>Work Schedule</th>
                                 <th >{{trans('doctors.Status')}}</th>
                                 <th>{{trans('doctors.created_at')}}</th>
                                 <th>{{trans('doctors.Processes')}}</th>
@@ -81,6 +82,12 @@
                                   <td>{{ $doctor->department->name}}</td>
                                   <td>{{ $doctor->phone}}</td>
                                   <td>{{ $doctor->consultation_fees}}</td>
+                                  <td>
+                                    @foreach($doctor->doctorworkschedule as $workdays)
+                                        {{$workdays->day}}
+                                    @endforeach
+
+                                  </td>
                                   <td>
                                     <div class="d-flex ">
                                       <div class="dot-label bg-{{$doctor->status == 1 ? 'success':'danger'}} mr-2"></div>
