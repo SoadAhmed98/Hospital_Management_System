@@ -5,23 +5,27 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    {{ trans('Brands.delete_section') }}</h5>
+                   Doctor Delete </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('Doctors.destroy', 'test') }}" method="post">
+            <form action="{{ route('Doctors.destroy', $doctor->id) }}" method="post">
                 {{ method_field('delete') }}
                 {{ csrf_field() }}
                 <div class="modal-body">
-                    <h5>{{ trans('MainCategories_trans.Warning') }}</h5>
+                    <h5>Are you sure about the deletion process?</h5>
+                    <input type="hidden" value="1" name="page_id">
+                    @if($doctor->image)
+                        <input type="hidden" name="filename" value="{{$doctor->image->filename}}">
+                    @endif
                     <input type="hidden" name="id" value="{{ $doctor->id }}">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">{{ trans('MainCategories_trans.Close') }}</button>
+                        data-dismiss="modal">Delete</button>
                     <button type="submit"
-                        class="btn btn-danger">{{ trans('MainCategories_trans.submit') }}</button>
+                        class="btn btn-danger">Confirm</button>
                 </div>
             </form>
         </div>

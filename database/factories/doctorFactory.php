@@ -28,7 +28,6 @@ class DoctorFactory extends Factory
             'phone' => $this->faker->phoneNumber,
             'consultation_fees' => $this->faker->randomElement([100, 200, 300, 400, 500]),
             'department_id' => Department::all()->random()->id,
-            'appointments' => json_encode($this->faker->randomElements(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], $this->faker->numberBetween(1, 7)))
 
         ];
     }

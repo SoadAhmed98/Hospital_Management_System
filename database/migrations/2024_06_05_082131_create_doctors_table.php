@@ -18,7 +18,6 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->json('appointments')->nullable(); // Changed to json type
             $table->string('consultation_fees')->nullable();
             $table->boolean('status')->default(1);
             $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');

@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Department;
+use App\Models\WorkSchedule;
+use Database\Seeders\WorkScheduleSeeder as SeedersWorkScheduleSeeder;
 use Illuminate\Database\Seeder;
+use WorkScheduleSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +18,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             DepartmentSeeder::class,
+            WorkScheduleTableSeeder::class,
             DoctorSeeder::class,
             ImageSeeder::class,
-           
         ]);
 
 

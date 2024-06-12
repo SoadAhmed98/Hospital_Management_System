@@ -2,7 +2,15 @@
 
 @section('css')
     <link rel="stylesheet" href="{{ URL::asset('Dashboard/plugins/sumoselect/sumoselect-rtl.css') }}">
-    <link href="{{URL::asset('dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
+    <link href="{{URL::asset('Dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
+    <style>
+        .SumoSelect>.optWrapper>.options li label {
+           margin-left: 30px;
+        }
+        .SumoSelect>.CaptionCont>span{
+            margin-left: 20px;
+        }
+    </style>
 @endsection
 
 @section('title')
@@ -22,50 +30,50 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-12 col-md-12">
+        <div class="col-lg-12 col-md-22">
             <div class="card">
                 <div class="card-body">
                     <form action="{{ route('Doctors.store') }}" method="post" autocomplete="off" enctype="multipart/form-data">
                         @csrf
                         <div class="pd-30 pd-sm-40 bg-gray-200">
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label>{{trans('doctors.name')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" name="name" type="text" required>
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" name="name" autofocus type="text" required>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label>{{trans('doctors.email')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
                                     <input class="form-control" name="email" type="email" required>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label>{{trans('doctors.password')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
                                     <input class="form-control" name="password" type="password" required>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label>{{trans('doctors.phone')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
                                     <input class="form-control" name="phone" type="tel" required>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
-                                    <label>{{trans('doctors.department')}}</label>
+                                <div class="col-md-2">
+                                    <label>{{trans('doctors.departments')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <select name="section_id" class="form-control SlectBox" required>
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                    <select name="department_id" class="form-control SlectBox" required>
                                         <option value="" selected disabled>------</option>
                                         @foreach($departments as $department)
                                             <option value="{{$department->id}}">{{$department->name}}</option>
@@ -73,36 +81,20 @@
                                     </select>
                                 </div>
                             </div>
+                            
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
-                                    <label>{{trans('doctors.appointments')}}</label>
+                                <div class="col-md-2">
+                                    <label>{{trans('doctors.fees')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <select multiple="multiple" class="testselect2" name="appointments[]" required>
-                                        <option selected value="" selected disabled>-- حدد المواعيد --</option>
-                                        <option value="السبت">السبت</option>
-                                        <option value="الأحد">الأحد</option>
-                                        <option value="الأثنين">الأثنين</option>
-                                        <option value="الثلاثاء">الثلاثاء</option>
-                                        <option value="الأربعاء">الأربعاء</option>
-                                        <option value="الخميس">الخميس</option>
-                                        <option value="الجمعة">الجمعة</option>
-                                    </select>
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
+                                    <input class="form-control" name="fees" value="0.00" type="text" required>
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
-                                    <label>{{trans('doctors.price')}}</label>
-                                </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" name="price" value="0.00" type="text" required>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-1">
+                                <div class="col-md-2">
                                     <label>{{trans('Doctors.doctor_photo')}}</label>
                                 </div>
-                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                <div class="col-md-10 mg-t-5 mg-md-t-0">
                                     <input type="file" accept="image/*" name="photo" onchange="loadFile(event)">
                                     <img style="border-radius:50%" width="150px" height="150px" id="output"/>
                                 </div>
