@@ -53,4 +53,8 @@ class PatientAPIRepository implements PatientAPIRepositoryInterface
         $patient->delete();
         return $patient;
     }
+    public function create()
+    {
+        return new Patient();
+    }
 }
