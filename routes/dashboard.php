@@ -3,6 +3,8 @@
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\PaymentAccountController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +27,9 @@ Route::group(
              Route::resource('Patients', PatientController::class);
         
              //############################# end 'Patients route ######################################
+
+             Route::resource('Payment', PaymentAccountController::class);
+
          
         
         require __DIR__.'/auth.php';
