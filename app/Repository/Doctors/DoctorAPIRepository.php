@@ -10,12 +10,36 @@ class DoctorAPIRepository implements DoctorAPIRepositoryInterface
 {
     public function index()
     {
-        return Doctor::with('image')->get();
+      
+        $doctors = Doctor::with('image')->get();
+
+        return   $doctorsData = $doctors->map(function($doctor) {
+            $doctorData = $doctor->toArray();
+            $image = $doctor->image;
+            if ($image) {
+                $doctorData['image'] = "http://127.0.0.1:80/Dashboard/img/doctors/".$image->filename; 
+            } else {
+                $doctorData['image'] = null;
+            }
+
+            return $doctorData;
+        });
+       
     }
 
     public function show($id)
     {
-        return Doctor::with('image')->findOrFail($id);
+        $doctor = Doctor::with('image')->findOrFail($id);
+
+        $doctorWithimage = $doctor->toArray();
+    
+        if ($doctor->image) {
+            $doctorWithimage['image'] = "http://127.0.0.1:80/Dashboard/img/doctors/" . $doctor->image->filename;
+        } else {
+            $doctorWithimage['image'] = null;
+        }
+
+        return $doctorWithimage;
        
     }
 
