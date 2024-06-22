@@ -32,6 +32,14 @@ class DoctorController extends Controller
     
     public function store(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email|unique:doctors,email',
+            'password' => 'required|min:8',
+            'department_id' => 'required|exists:departments,id',
+            'phone' => 'required|numeric|digits_between:10,15',
+            'fees' => 'required|numeric|min:0',
+            'name' => 'required|string|max:255',
+        ]);
         return $this->Doctors->store($request);
     }
 

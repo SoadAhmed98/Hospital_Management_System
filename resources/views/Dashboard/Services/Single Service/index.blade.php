@@ -18,10 +18,25 @@
     </div>
     <!-- breadcrumb -->
 @endsection
+
 @section('content')
     
     <!-- row -->
     <!-- row opened -->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @if (session('add'))
+    <div class="alert alert-success">
+        {{ session('add') }}
+    </div>
+    @endif
     <div class="row row-sm">
         <div class="col-xl-12">
             <div class="card">
@@ -53,10 +68,12 @@
                                     <td>{{$service->name}}</td>
                                     <td>{{$service->price}}</td>
                                     <td>
-                                        <div
-                                            class="dot-label bg-{{$service->status == 1 ? 'success':'danger'}} ml-1"></div>
-                                        {{$service->status == 1 ? trans('doctors.Enabled'):trans('doctors.Not_enabled')}}
+                                        <div class="d-flex ">
+                                        <div class="dot-label bg-{{$service->status == 1 ? 'success':'danger'}} mr-2"></div>
+                                        <small class="mt-2 ml-2"> {{$service->status == 1 ? trans('doctors.Enabled'):trans('doctors.Not_enabled')}}</small>
+                                        </div>
                                     </td>
+                                  
                                     <td> {{ Str::limit($service->description, 50) }}</td>
                                     <td>{{ $service->created_at->diffForHumans() }}</td>
                                     <td>

@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('service_group', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('Group_id')->references('id')->on('groups')->onDelete('cascade');
-            $table->foreignId('Service_id')->references('id')->on('Services')->onDelete('cascade');
+            $table->foreignId('group_id')->references('id')->on('groups')->onDelete('cascade');
+            $table->foreignId('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->timestamps();
         });
     }
