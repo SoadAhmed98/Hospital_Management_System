@@ -4,6 +4,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PaymentAccountController;
+use App\Http\Controllers\Dashboard\ReceiptAccountController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,9 @@ Route::group(
              //############################# end 'Patients route ######################################
 
              Route::resource('Payment', PaymentAccountController::class);
+
+             Route::resource('Receipt', ReceiptAccountController::class);
+
 
          
         
