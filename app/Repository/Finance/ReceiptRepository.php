@@ -92,7 +92,7 @@ class ReceiptRepository implements ReceiptRepositoryInterface
             $fund_accounts = FundAccount::where('receipt_id',$request->id)->first();
             $fund_accounts->date =date('y-m-d');
             $fund_accounts->receipt_id = $receipt_accounts->id;
-            $fund_accounts->Debit = $request->Debit;
+            $fund_accounts->Debit = $request->amount;
             $fund_accounts->credit = 0.00;
             $fund_accounts->save();
             // store patient_accounts
@@ -101,7 +101,7 @@ class ReceiptRepository implements ReceiptRepositoryInterface
             $patient_accounts->patient_id = $request->patient_id;
             $patient_accounts->receipt_id = $receipt_accounts->id;
             $patient_accounts->Debit = 0.00;
-            $patient_accounts->credit =$request->Debit;
+            $patient_accounts->credit =$request->amount;
             $patient_accounts->save();
 
 

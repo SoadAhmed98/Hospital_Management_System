@@ -24,6 +24,9 @@ use App\Interfaces\Finance\PaymentAPIRepositoryInterface;
 use App\Repository\Finance\ReceiptRepository;
 use App\Interfaces\Finance\ReceiptRepositoryInterface;
 
+use App\Repository\Finance\ReceiptAPIRepository;
+use App\Interfaces\Finance\ReceiptAPIRepositoryInterface;
+
 class RepositoryServiceProvider extends ServiceProvider
 {
     /**
@@ -38,6 +41,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PaymentRepositoryInterface::class, PaymentRepository::class);
         $this->app->bind(PaymentAPIRepositoryInterface::class, PaymentAPIRepository::class);
         $this->app->bind(ReceiptRepositoryInterface::class, ReceiptRepository::class);
+        $this->app->bind(ReceiptAPIRepositoryInterface::class, ReceiptAPIRepository::class);
 
 
 
