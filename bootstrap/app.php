@@ -13,8 +13,6 @@ return Application::configure(basePath: dirname(__DIR__))
         then: function () {
             Route::middleware('web')
                 ->group(base_path('routes/dashboard.php'));
-            Route::middleware('web')
-            ->group(base_path('routes/website.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware) {

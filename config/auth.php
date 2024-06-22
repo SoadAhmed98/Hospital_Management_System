@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\Admin;
+use App\Models\Doctor;
+use App\Models\LaboratoryEmployee;
+
 return [
 
     /*
@@ -14,10 +18,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => env('AUTH_GUARD', 'web'),
-        'passwords' => env('AUTH_PASSWORD_BROKER', 'users'),
+        'guard' => env('AUTH_GUARD', 'admin'),
+        'passwords' => env('AUTH_PASSWORD_BROKER', 'admins'),
     ],
-
+  
     /*
     |--------------------------------------------------------------------------
     | Authentication Guards
@@ -39,6 +43,18 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],
+        'doctor' => [
+            'driver' => 'session',
+            'provider' => 'doctors',
+        ],
+        'lab_employee' => [
+            'driver' => 'session',
+            'provider' => 'lab_employees',
         ],
     ],
 
@@ -63,6 +79,18 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+        ],
+        'admins' => [
+            'driver' => 'eloquent',
+            'model' => Admin::class,
+        ],
+        'doctors' => [
+            'driver' => 'eloquent',
+            'model' => Doctor::class,
+        ],
+        'lab_employees' => [
+            'driver' => 'eloquent',
+            'model' => LaboratoryEmployee::class,
         ],
 
         // 'users' => [
@@ -94,6 +122,24 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'admins' => [
+            'provider' => 'admins',
+            'table' => 'admin_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'doctors' => [
+            'provider' => 'doctors',
+            'table' => 'doctor_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'lab_employees' => [
+            'provider' => 'lab_employees',
+            'table' => 'lab_employee_password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
