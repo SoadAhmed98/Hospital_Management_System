@@ -85,7 +85,6 @@
 											</div>
 											<div class="wd-90p">
 												<div class="d-flex">
-												<h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->email }}</span>
 
 												</div>
 												<p class="mb-0 desc">I'm sorry but i'm not sure how to help you with that......</p>
@@ -246,7 +245,6 @@
 										<div class="d-flex wd-100p">
 											<div class="main-img-user"><img alt="" src="{{URL::asset('Dashboard/img/faces/6.jpg')}}" class=""></div>
 											<div class="mr-3 my-auto ">
-											<h6>{{ auth()->user()->name }}</h6><span>{{ auth()->user()->email }}</span>
 
 											</div>
 										</div>
