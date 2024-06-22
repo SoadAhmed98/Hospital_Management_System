@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Doctor\DoctorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\DepartmentController;
+use App\Http\Controllers\Dashboard\PatientController;
+use App\Http\Controllers\Dashboard\PaymentAccountController;
+use App\Http\Controllers\Dashboard\ReceiptAccountController;
+
 
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use App\Livewire\CreateGroupServices;
@@ -22,6 +26,18 @@ Route::group(
                 Route::resource('Departments', DepartmentController::class);
         
             //############################# end Departments route ######################################
+
+
+             //############################# 'Patients route ##########################################
+        
+             Route::resource('Patients', PatientController::class);
+        
+             //############################# end 'Patients route ######################################
+
+             Route::resource('Payment', PaymentAccountController::class);
+
+             Route::resource('Receipt', ReceiptAccountController::class);
+
             
             //############################# Doctors route ##########################################
             
@@ -33,6 +49,7 @@ Route::group(
              //############################# Services route ##########################################
         
              Route::resource('Service', SingleServiceController::class);
+
         
              //############################# end Services route ######################################
             //############################# GroupServices route ##########################################
