@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             DoctorSeeder::class,
             ImageSeeder::class,
             ServiceSeeder::class,
+            PatientSeeder::class
         ]);
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\DoctorResource;
 use App\Interfaces\Doctors\DoctorAPIRepositoryInterface;
 
 class APIDoctorsController extends Controller
@@ -18,27 +19,16 @@ class APIDoctorsController extends Controller
 
     public function index()
     {
-        return response()->json($this->doctors->index());
+        $doctors = $this->doctors->index();
+        return DoctorResource::collection($doctors);
     }
 
     public function show($id)
     {
-        return response()->json($this->doctors->show($id));
+        $doctor = $this->doctors->show($id);
+        return new DoctorResource($doctor);
+       
     }
 
-    // public function store(Request $request)
-    // {
-    //     return response()->json($this->departments->store($request), 201);
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     return response()->json($this->departments->update($request, $id));
-    // }
-
-    // public function destroy($id)
-    // {
-    //     return response()->json($this->departments->destroy($id), 204);
-    // }
 
 }

@@ -63,7 +63,7 @@ Route::prefix('doctor')->name('doctor.')->group(function(){
                     ->name('logout');
     
         Route::get('/dashboard', function () {
-            return view('Dashboard.Admins.dashboard');
+            return view('Dashboard.Doctors.dashboard');
         })->name('dashboard');
       
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
