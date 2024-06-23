@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
             WorkScheduleTableSeeder::class,
             DoctorSeeder::class,
             ImageSeeder::class,
+            ServiceSeeder::class,
+            PatientSeeder::class
         ]);
 
 

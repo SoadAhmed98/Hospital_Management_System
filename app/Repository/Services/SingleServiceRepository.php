@@ -23,7 +23,7 @@ class SingleServiceRepository implements SingleServiceRepositoryInterface
             $SingleService->name = $request->name;
             $SingleService->save();
 
-            session()->flash('add');
+            session()->flash('add','Service added successfully');
             return redirect()->route('Service.index');
         }
         catch (\Exception $e) {

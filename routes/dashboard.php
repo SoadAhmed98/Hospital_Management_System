@@ -10,14 +10,15 @@ use App\Http\Controllers\Dashboard\ReceiptAccountController;
 
 
 use App\Http\Controllers\Dashboard\SingleServiceController;
+use App\Livewire\CreateGroupServices;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 
 Route::group(
     [
-        'prefix' => LaravelLocalization::setLocale(),
-        'middleware' => [ 'localeSessionRedirect', 'localizationRedirect', 'localeViewPath' ]
+        // 'prefix' => LaravelLocalization::setLocale(),
+        'middleware' => [ 'auth.all' ]
     ], function(){
 
             //############################# Departments route ##########################################
@@ -51,12 +52,16 @@ Route::group(
 
         
              //############################# end Services route ######################################
-                 //############################# GroupServices route ##########################################
+            //############################# GroupServices route ##########################################
 
                 Route::view('Add_GroupServices','livewire.GroupServices.include_create')->name('Add_GroupServices');
+           //############################# end GroupServices route ######################################
 
-        //############################# end GroupServices route ######################################
+          //############################# SingleInvoices route ##########################################
 
+           Route::view('SingleInvoices','livewire.SingleInvoices.index')->name('single_invoices');
+        
+           //############################# end SingleInvoices route ##########################################
 
        
         Route::resource('backend', DashboardController::class);
