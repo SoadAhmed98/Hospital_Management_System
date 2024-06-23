@@ -15,9 +15,10 @@
 
                 </div>
                 <div class="user-info">
+              
                 <h6>{{ auth()->user()->name }}</h6>
 							<span>{{ auth()->user()->email }}</span>
-                
+                                
                 </div>
             </div>
         </div>
