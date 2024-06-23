@@ -11,24 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('single_invoices', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoice_type'); //single or group
             $table->date('invoice_date');
-            $table->integer('invoice_status')->default(1); //pending or revision ...
-            $table->double('price', 8, 2)->default(0);
-            $table->double('discount_value', 8, 2)->default(0);
-
             $table->foreignId('patient_id')->references('id')->on('patients')->onDelete('cascade');
             $table->foreignId('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
             $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
-            $table->foreignId('Group_id')->nullable()->references('id')->on('groups')->onDelete('cascade');
-            $table->foreignId('Service_id')->nullable()->references('id')->on('services')->onDelete('cascade');
-            
+            $table->foreignId('service_id')->references('id')->on('services')->onDelete('cascade');
+            $table->double('price', 8, 2)->default(0);
+            $table->double('discount_value', 8, 2)->default(0);
             $table->string('tax_rate');
             $table->string('tax_value');
             $table->double('total_with_tax', 8, 2)->default(0);
-            $table->integer('type')->default(1); //cash or under account
+            $table->integer('type')->default(1);
             $table->timestamps();
         });
     }
@@ -38,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('single_invoices');
     }
 };
