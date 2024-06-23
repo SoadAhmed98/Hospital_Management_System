@@ -57,6 +57,11 @@ Route::group(
                 Route::view('Add_GroupServices','livewire.GroupServices.include_create')->name('Add_GroupServices');
            //############################# end GroupServices route ######################################
 
+          //############################# SingleInvoices route ##########################################
+
+           Route::view('SingleInvoices','livewire.SingleInvoices.index')->name('single_invoices');
+        
+           //############################# end SingleInvoices route ##########################################
 
        
         Route::resource('backend', DashboardController::class);
