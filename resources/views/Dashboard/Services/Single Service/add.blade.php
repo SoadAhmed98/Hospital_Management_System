@@ -8,11 +8,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+         
             <form action="{{ route('Service.store') }}" method="post" autocomplete="off">
                 @csrf
                 <div class="modal-body">
                     <label for="name">{{trans('Services.name')}}</label>
-                    <input type="text" name="name" id="name" class="form-control"><br>
+                    <input type="text" name="name" id="name" class="form-control" ><br>
 
                     <label for="price">{{trans('Services.price')}}</label>
                     <input type="number" name="price" id="price" class="form-control"><br>

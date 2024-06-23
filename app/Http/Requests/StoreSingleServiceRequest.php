@@ -24,7 +24,7 @@ class StoreSingleServiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:Services,name,' . $this->id,
+            'name' => 'required|unique:services,name,' . $this->id,
             'price' => 'numeric|required',
         ];
     }

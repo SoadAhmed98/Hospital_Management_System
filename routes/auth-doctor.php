@@ -63,8 +63,8 @@ Route::prefix('doctor')->name('doctor.')->group(function(){
                     ->name('logout');
     
         Route::get('/dashboard', function () {
-            return view('Dashboard.Admin.dashboard');
-        })->middleware('verified')->name('dashboard');
+            return view('Dashboard.Admins.dashboard');
+        })->name('dashboard');
       
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
