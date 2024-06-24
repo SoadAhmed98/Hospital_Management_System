@@ -46,7 +46,7 @@
 
                 <div class="col">
                     <label>Invoice Type</label>
-                    <select wire:model="type" class="form-control">
+                    <select wire:model="type" class="form-control" {{ $updateMode == true ? 'disabled' : ''}} >
                         <option value="">-- Select from list --</option>
                         <option value="1">Cash</option>
                         <option value="2">Deferred</option>
