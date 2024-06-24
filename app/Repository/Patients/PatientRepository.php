@@ -6,6 +6,7 @@ use App\Interfaces\Patients\PatientRepositoryInterface;
 use App\Models\Patient;
 use App\Models\Invoice;
 use App\Models\PatientAccount;
+use App\Models\ReceiptAccount;
 
 
 use Illuminate\Support\Facades\Hash;
@@ -20,12 +21,13 @@ class PatientRepository implements PatientRepositoryInterface
 
     public function show($id)
     {
-        $patient = Patient::findOrFail($id);
+        $Patient = Patient::findOrFail($id);
         // You can include other related data if needed
         $invoices = Invoice::where('patient_id', $id)->get();
-        $patient_accounts = PatientAccount::where('patient_id', $id)->get();
+        $receipt_accounts = ReceiptAccount::where('patient_id', $id)->get();
+        $Patient_accounts = PatientAccount::where('patient_id', $id)->get();
 
-        return view('Dashboard.Patients.show', compact('patient', 'invoices', 'patient_accounts'));
+        return view('Dashboard.Patients.show', compact('Patient', 'invoices', 'Patient_accounts','receipt_accounts'));
 
     }
 
