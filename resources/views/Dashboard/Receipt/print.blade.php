@@ -1,6 +1,6 @@
 @extends('Dashboard.layouts.master')
 @section('title')
-    Print Payment Voucher
+   Print Preview
 @stop
 @section('css')
     <style>
@@ -16,7 +16,7 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Payment Voucher</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Print Voucher</span>
+                <h4 class="content-title mb-0 my-auto">Receipt</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Print Receipt</span>
             </div>
         </div>
     </div>
@@ -26,23 +26,25 @@
     <!-- row -->
     <div class="row row-sm">
         <div class="col-md-12 col-xl-12">
-            <div class="main-content-body-invoice" id="print">
+            <div class=" main-content-body-invoice" id="print">
                 <div class="card card-invoice">
                     <div class="card-body">
                         <div class="invoice-header">
-                            <h1 class="invoice-title">Payment Voucher</h1>
+                            <h1 class="invoice-title">Receipt</h1>
                             <div class="billed-from">
                                 <h6>Hospital Management System</h6>
-                                <p>201 Engineers<br>
+                                <p>201 Engineers Street<br>
                                     Tel No: 011111111<br>
-                                    Email: Hospital@gmail.com</p>
+                                    Email: hospital@gmail.com</p>
                             </div><!-- billed-from -->
                         </div><!-- invoice-header -->
                         <div class="row mg-t-20">
                             <div class="col-md">
-                                <label class="tx-gray-600">Voucher Information</label>
-                                <p class="invoice-info-row"><span>Issue Date</span> <span>{{$payment_account->date}}</span></p>
-                                <p class="invoice-info-row"><span>Patient Name</span> <span>{{$payment_account->patients->name}}</span></p>
+                                <label class="tx-gray-600">Receipt Information</label>
+                                <p class="invoice-info-row"><span>Issue Date</span> <span>{{$receipt->date}}</span>
+                                </p>
+                                <p class="invoice-info-row "><span>Patient Name</span>
+                                    <span>{{$receipt->patients->name}}</span></p>
                             </div>
                         </div>
                         <div class="table-responsive mg-t-40">
@@ -57,8 +59,8 @@
                                 <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td class="tx-12">{{ $payment_account->description}}</td>
-                                    <td class="tx-center">{{ number_format($payment_account->amount, 2)}}</td>
+                                    <td class="tx-12">{{ $receipt->description}}</td>
+                                    <td class="tx-center">{{ number_format($receipt->amount,2)}}</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -73,8 +75,16 @@
         </div><!-- COL-END -->
     </div>
     <!-- row closed -->
+    </div>
+    <!-- Container closed -->
+    </div>
+    <!-- main-content closed -->
 @endsection
 @section('js')
+    <!--Internal  Chart.bundle js -->
+    <script src="{{URL::asset('Admin/assets/plugins/chart.js/Chart.bundle.min.js')}}"></script>
+
+
     <script type="text/javascript">
         function printDiv() {
             var printContents = document.getElementById('print').innerHTML;

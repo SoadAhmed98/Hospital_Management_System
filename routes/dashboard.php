@@ -60,6 +60,7 @@ Route::group(
           //############################# SingleInvoices route ##########################################
 
            Route::view('SingleInvoices','livewire.SingleInvoices.index')->name('single_invoices');
+           Route::view('Print_single_invoices','livewire.SingleInvoices.print')->name('Print_single_invoices');
         
            //############################# end SingleInvoices route ##########################################
 

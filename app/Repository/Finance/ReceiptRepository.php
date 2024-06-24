@@ -28,6 +28,12 @@ class ReceiptRepository implements ReceiptRepositoryInterface
         return view('Dashboard.Receipt.add',compact('Patients'));
     }
 
+    public function show($id)
+    {
+        $receipt = ReceiptAccount::findorfail($id);
+        return view('Dashboard.Receipt.print',compact('receipt'));
+    }
+
     public function store($request)
     {
         DB::beginTransaction();

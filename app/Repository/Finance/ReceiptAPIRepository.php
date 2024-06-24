@@ -33,7 +33,7 @@ class ReceiptAPIRepository implements ReceiptAPIRepositoryInterface
             $receipt_accounts = new ReceiptAccount();
             $receipt_accounts->date = date('Y-m-d');
             $receipt_accounts->patient_id = $request->patient_id;
-            $receipt_accounts->amount = $request->Debit;
+            $receipt_accounts->amount = $request->amount;
             $receipt_accounts->description = $request->description;
             $receipt_accounts->save();
 
@@ -41,7 +41,7 @@ class ReceiptAPIRepository implements ReceiptAPIRepositoryInterface
             $fund_accounts = new FundAccount();
             $fund_accounts->date = date('Y-m-d');
             $fund_accounts->receipt_id = $receipt_accounts->id;
-            $fund_accounts->Debit = $request->Debit;
+            $fund_accounts->Debit = $request->amount;
             $fund_accounts->credit = 0.00;
             $fund_accounts->save();
 
@@ -51,7 +51,7 @@ class ReceiptAPIRepository implements ReceiptAPIRepositoryInterface
             $patient_accounts->patient_id = $request->patient_id;
             $patient_accounts->receipt_id = $receipt_accounts->id;
             $patient_accounts->Debit = 0.00;
-            $patient_accounts->credit = $request->Debit;
+            $patient_accounts->credit = $request->amount;
             $patient_accounts->save();
 
             DB::commit();
@@ -72,14 +72,14 @@ class ReceiptAPIRepository implements ReceiptAPIRepositoryInterface
             $receipt_accounts = ReceiptAccount::findOrFail($id);
             $receipt_accounts->date = date('Y-m-d');
             $receipt_accounts->patient_id = $request->patient_id;
-            $receipt_accounts->amount = $request->Debit;
+            $receipt_accounts->amount = $request->amount;
             $receipt_accounts->description = $request->description;
             $receipt_accounts->save();
 
             // update fund_accounts
             $fund_accounts = FundAccount::where('receipt_id', $receipt_accounts->id)->first();
             $fund_accounts->date = date('Y-m-d');
-            $fund_accounts->Debit = $request->Debit;
+            $fund_accounts->Debit = $request->amount;
             $fund_accounts->credit = 0.00;
             $fund_accounts->save();
 
@@ -88,7 +88,7 @@ class ReceiptAPIRepository implements ReceiptAPIRepositoryInterface
             $patient_accounts->date = date('Y-m-d');
             $patient_accounts->patient_id = $request->patient_id;
             $patient_accounts->Debit = 0.00;
-            $patient_accounts->credit = $request->Debit;
+            $patient_accounts->credit = $request->amount;
             $patient_accounts->save();
 
             DB::commit();
