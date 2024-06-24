@@ -10,6 +10,16 @@ class Invoice extends Model
     use HasFactory;
    // protected $guarded=[];
     protected $fillable =['invoice_status'];
+    
+    public function Group()
+    {
+        return $this->belongsTo(Group::class,'Group_id');
+    }
+
+    public function Service()
+    {
+        return $this->belongsTo(Service::class,'Service_id');
+    }
 
     public function Patient()
     {

@@ -12,6 +12,9 @@ interface ReceiptRepositoryInterface
     // show form add
     public function create();
 
+     // show Receipt
+     public function show($id);
+
     // store Receipt
     public function store($request);
 
