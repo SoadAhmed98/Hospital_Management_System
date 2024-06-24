@@ -63,6 +63,12 @@ Route::group(
         
            //############################# end SingleInvoices route ##########################################
 
+           //#############################  GroupInvoices route ##########################################
+
+           Route::view('GroupInvoices','livewire.GroupInvoices.index')->name('group_invoices');
+        
+           //############################# end GroupInvoices route ##########################################
+
        
         Route::resource('backend', DashboardController::class);
 
