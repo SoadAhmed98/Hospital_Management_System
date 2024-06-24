@@ -22,6 +22,14 @@ class CreateGroupServices extends Component
     public $updateMode = false;
     public $group_id;
 
+     // Define validation rules
+     protected $rules = [
+        'name_group' => 'required',
+        'notes' => 'nullable',
+        'GroupsItems.*.service_id' => 'required',
+        'GroupsItems.*.quantity' => 'required|numeric|min:1',
+    ];
+
     public function mount()
     {
         $this->allServices = Service::all();
@@ -29,7 +37,6 @@ class CreateGroupServices extends Component
 
     public function render()
     {
-
         $total = 0;
         foreach ($this->GroupsItems as $groupItem) {
             if ($groupItem['is_saved'] && $groupItem['service_price'] && $groupItem['quantity']) {
@@ -37,12 +44,20 @@ class CreateGroupServices extends Component
             }
         }
 
-        return view('livewire.GroupServices.create-group-services', [
-            'groups'=>Group::all(),
-            'subtotal' => $Total_after_discount = $total - ((is_numeric($this->discount_value) ? $this->discount_value : 0)),
-            'total' => $Total_after_discount * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100)
-        ]);
+        $subtotal = $total - ((is_numeric($this->discount_value) ? $this->discount_value : 0));
+        $total_with_tax = $subtotal * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100);
 
+        return view('livewire.GroupServices.create-group-services', [
+            'groups' => Group::all(),
+            'subtotal' => $subtotal,
+            'total' => $total_with_tax
+        ]);
+    }
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+        $this->render();
     }
 
 
@@ -65,6 +80,7 @@ class CreateGroupServices extends Component
 
         $this->ServiceSaved = false;
     }
+
 
     public function editService($index)
     {
@@ -89,13 +105,20 @@ class CreateGroupServices extends Component
     }
 
     public function removeService($index)
-    {
+{
+    // Check if the item exists in the array before attempting to remove it
+    if (isset($this->GroupsItems[$index])) {
+        // Unset the specific item
         unset($this->GroupsItems[$index]);
+        // Reindex the array to maintain proper indexing
         $this->GroupsItems = array_values($this->GroupsItems);
     }
+}
+
 
     public function saveGroup()
     {
+        $this->validate();
         // update
         if ($this->updateMode) {
             $Groups = Group::find($this->group_id);
@@ -166,7 +189,8 @@ class CreateGroupServices extends Component
     }
     
 
-    public function show_form_add(){
+    public function show_form_add()
+    {
         $this->show_table = false;
     }
 
@@ -202,3 +226,4 @@ class CreateGroupServices extends Component
     }
 
 }
+
