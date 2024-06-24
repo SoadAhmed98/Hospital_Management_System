@@ -1,5 +1,5 @@
 <div>
-     @if ($catchError)
+    @if ($catchError)
         <div class="alert alert-danger" id="success-danger">
             <button type="button" class="close" data-dismiss="alert">x</button>
             {{ $catchError }}
@@ -14,7 +14,7 @@
     @endif
 
     @if($show_table)
-        @include('livewire.SingleInvoices.Table')
+        @include('livewire.GroupInvoices.Table')
     @else
         <form wire:submit.prevent="store" autocomplete="off">
             @csrf
@@ -22,9 +22,9 @@
                 <div class="col">
                     <label>Patient Name</label>
                     <select wire:model="patient_id" class="form-control" required>
-                        <option value="">-- Select from list --</option>
+                        <option value="">-- Select from the list --</option>
                         @foreach($Patients as $Patient)
-                            <option value="{{ $Patient->id }}">{{ $Patient->name }}</option>
+                            <option value="{{$Patient->id}}">{{$Patient->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -32,9 +32,9 @@
                 <div class="col">
                     <label>Doctor Name</label>
                     <select wire:model="doctor_id" wire:change="get_department" class="form-control" id="exampleFormControlSelect1" required>
-                        <option value="">-- Select from list --</option>
+                        <option value="">-- Select from the list --</option>
                         @foreach($Doctors as $Doctor)
-                            <option value="{{ $Doctor->id }}">{{ $Doctor->name }}</option>
+                            <option value="{{$Doctor->id}}">{{$Doctor->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -46,10 +46,10 @@
 
                 <div class="col">
                     <label>Invoice Type</label>
-                    <select wire:model="type" class="form-control" {{ $updateMode == true ? 'disabled' : ''}} >
-                        <option value="">-- Select from list --</option>
+                    <select wire:model="type" class="form-control" {{$updateMode == true ? 'disabled' : ''}}>
+                        <option value="">-- Select from the list --</option>
                         <option value="1">Cash</option>
-                        <option value="2">Deferred</option>
+                        <option value="2">Credit</option>
                     </select>
                 </div>
             </div><br>
@@ -80,18 +80,18 @@
                                     <tr>
                                         <th scope="row">1</th>
                                         <td>
-                                            <select wire:model="Service_id" class="form-control" wire:change="get_price" id="exampleFormControlSelect1">
-                                                <option value="">-- Select service --</option>
-                                                @foreach($Services as $Service)
-                                                    <option value="{{ $Service->id }}">{{ $Service->name }}</option>
+                                            <select wire:model="Group_id" class="form-control" wire:change="get_price" id="exampleFormControlSelect1">
+                                                <option value="">-- Select Service --</option>
+                                                @foreach($Groups as $Group)
+                                                    <option value="{{$Group->id}}">{{$Group->name}}</option>
                                                 @endforeach
                                             </select>
                                         </td>
                                         <td><input wire:model="price" type="text" class="form-control" readonly></td>
-                                        <td><input wire:model="discount_value" wire:change="calculateTotals" type="text" class="form-control"></td>
-                                        <td><input wire:model="tax_rate" wire:change="calculateTotals" type="text" class="form-control"></td>
-                                        <td><input type="text" class="form-control" value="{{ $tax_value }}" readonly></td>
-                                        <td><input type="text" class="form-control" value="{{ $total_with_tax }}" readonly></td>
+                                        <td><input wire:model="discount_value" type="text" class="form-control"></td>
+                                        <td><input wire:model="tax_rate" type="text" class="form-control" readonly></td>
+                                        <td><input type="text" class="form-control" value="{{$tax_value}}" readonly></td>
+                                        <td><input type="text" class="form-control" readonly value="{{$subtotal + $tax_value}}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -100,7 +100,6 @@
                     </div><!-- bd -->
                 </div>
             </div>
-
             <input class="btn btn-outline-success" type="submit" value="Confirm Data">
         </form>
     @endif

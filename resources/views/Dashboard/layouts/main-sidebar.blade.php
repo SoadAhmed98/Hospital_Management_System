@@ -265,6 +265,9 @@
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ route('single_invoices')}}">Single Service Invoice</a></li>
                 </ul>
+				<ul class="slide-menu">
+                    <li><a class="slide-item" href="{{ route('group_invoices')}}">Group Service Invoice</a></li>
+                </ul>
             </li>
             
             <li class="slide">

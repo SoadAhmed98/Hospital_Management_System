@@ -56,8 +56,15 @@ Route::group(
           //############################# SingleInvoices route ##########################################
 
            Route::view('SingleInvoices','livewire.SingleInvoices.index')->name('single_invoices');
+           Route::view('Print_single_invoices','livewire.SingleInvoices.print')->name('Print_single_invoices');
         
            //############################# end SingleInvoices route ##########################################
+
+           //#############################  GroupInvoices route ##########################################
+
+           Route::view('GroupInvoices','livewire.GroupInvoices.index')->name('group_invoices');
+        
+           //############################# end GroupInvoices route ##########################################
 
        
         Route::resource('backend', DashboardController::class);
