@@ -3,6 +3,7 @@
 use App\Models\Admin;
 use App\Models\Doctor;
 use App\Models\LaboratoryEmployee;
+use App\Models\Patient;
 
 return [
 
@@ -56,6 +57,10 @@ return [
             'driver' => 'session',
             'provider' => 'lab_employees',
         ],
+        'patient' => [
+            'driver' => 'session',
+            'provider' => 'patients',
+        ],
     ],
 
     /*
@@ -92,7 +97,10 @@ return [
             'driver' => 'eloquent',
             'model' => LaboratoryEmployee::class,
         ],
-
+        'patients' => [
+            'driver' => 'eloquent',
+            'model' => Patient::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
