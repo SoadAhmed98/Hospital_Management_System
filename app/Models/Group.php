@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Group extends Model
 {
     use HasFactory;
-    public $fillable= ['Total_before_discount','discount_value','Total_after_discount','tax_rate','Total_with_tax','name','notes'];
+    public $fillable= ['Total_before_discount','discount_value','Total_after_discount','tax_rate','Total_with_tax'];
     public $timestamps = false;
     public function service_group()
     {

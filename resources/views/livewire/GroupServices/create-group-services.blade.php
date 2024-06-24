@@ -3,6 +3,9 @@
     @if ($ServiceSaved)
         <div class="alert alert-info">Data saved successfully.</div>
     @endif
+    @if ($show_table)
+         @include('livewire.GroupServices.index')
+    @else
     <form wire:submit.prevent="saveGroup" autocomplete="off">
         @csrf
         <div class="form-group">
@@ -104,6 +107,8 @@
         </div>
 
     </form>
+    @endif
+    
 
 </div>
 

@@ -7,13 +7,9 @@ use App\Http\Controllers\Dashboard\DepartmentController;
 use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PaymentAccountController;
 use App\Http\Controllers\Dashboard\ReceiptAccountController;
-
-
 use App\Http\Controllers\Dashboard\SingleServiceController;
 use App\Livewire\CreateGroupServices;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
-
-
 
 Route::group(
     [
