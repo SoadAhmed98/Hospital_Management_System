@@ -1,7 +1,11 @@
 <?php
 
+
+use App\Http\Middleware\AuthAdmin;
+use App\Http\Middleware\AuthDoctor;
+use App\Http\Middleware\GuestAdmin;
+use App\Http\Middleware\GuestDoctor;
 use Illuminate\Foundation\Application;
-use App\Http\Middleware\AuthForAllGuards;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -12,8 +16,9 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
         then: function () {
-            Route::middleware('web')
-                ->group(base_path('routes/dashboard.php'));
+            Route::group([],base_path('routes/AdminDashboardRoutes.php'));
+            Route::group([],base_path('routes/DoctorDashboardRoutes.php'));
+
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -28,7 +33,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
             'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
             'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-            'auth.all' => AuthForAllGuards::class
+            'auth.admin' => AuthAdmin::class,
+            'auth.doctor' => AuthDoctor::class,
+            'guest.admin'=>GuestAdmin::class,
+            'guest.doctor'=>GuestDoctor::class,
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

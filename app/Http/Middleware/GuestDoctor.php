@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AuthForAllGuards
+class GuestDoctor
 {
     /**
      * Handle an incoming request.
@@ -16,14 +16,9 @@ class AuthForAllGuards
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $guards = ['admin','doctor']; // Define your guards here
-
-        foreach ($guards as $guard) {
-            if (Auth::guard($guard)->check()) {
-                return $next($request);
-            }
+        if (Auth::guard('doctor')->check()) {
+            return redirect()->route('doctor.dashboard');
         }
-
-        return redirect()->route('admin.login');
+        return $next($request);
     }
 }

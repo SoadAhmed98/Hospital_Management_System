@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
   return view('Dashboard.Admins.auth.signin');
-});
+})->middleware(['guest.admin','guest.doctor']);
 
 
 require __DIR__.'/auth-admin.php';
