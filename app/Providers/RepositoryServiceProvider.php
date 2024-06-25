@@ -36,6 +36,9 @@ use App\Interfaces\Services\SingleServiceRepositoryInterface;
 use App\Repository\Services\SingleServiceRepository;
 
 
+use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
+use App\Repository\doctor_dashboard\InvoicesRepository;
+
 use App\Interfaces\doctor_dashboard\LaboratoriesRepositoryInterface;
 use App\Repository\doctor_dashboard\LaboratoriesRepository;
 
@@ -62,6 +65,10 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(DoctorRepositoryInterface::class, DoctorRepository::class);
         $this->app->bind(DoctorAPIRepositoryInterface::class, DoctorAPIRepository::class);
         $this->app->bind(SingleServiceRepositoryInterface::class, SingleServiceRepository::class);
+
+
+        // doctor
+        $this->app->bind(InvoicesRepositoryInterface::class, InvoicesRepository::class);
 
         $this->app->bind(LaboratoriesRepositoryInterface::class, LaboratoriesRepository::class);
 
