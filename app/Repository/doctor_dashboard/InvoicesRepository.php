@@ -12,6 +12,6 @@ class InvoicesRepository implements InvoicesRepositoryInterface
     public function index()
     {
         $invoices = Invoice::where('doctor_id',  Auth::user()->id)->get();
-        return view('Dashboard.Doctor.invoices.index',compact('invoices'));
+        return view('Dashboard.Doctors.Invoices.index',compact('invoices'));
     }
 }
