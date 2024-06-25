@@ -225,5 +225,29 @@ class CreateGroupServices extends Component
         return redirect()->to('/Add_GroupServices');
     }
 
+
+    public function getAllGroupServices()
+    {
+        $groupServices = Group::with(['service_group' => function ($query) {
+            $query->select('services.id', 'services.price', 'services.description', 'services.status', 'services.name')
+                ->withPivot('quantity');
+        }])
+        ->whereNotNull('name')
+        ->get(['id', 'name', 'Total_before_discount', 'discount_value', 'Total_after_discount', 'tax_rate', 'Total_with_tax', 'notes']);
+
+        return $groupServices;
+    }
+
+
+    public function getGroupService($id)
+    {
+        $group = Group::with(['service_group' => function ($query) {
+            $query->select('services.id', 'services.price', 'services.description', 'services.status', 'services.name')
+                ->withPivot('quantity');
+        }])
+        ->findOrFail($id);
+
+        return $group;
+    }
 }
 
