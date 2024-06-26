@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patient_history', function (Blueprint $table) {
+        Schema::create('patient_histories', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->dateTime('review_date')->nullable();
