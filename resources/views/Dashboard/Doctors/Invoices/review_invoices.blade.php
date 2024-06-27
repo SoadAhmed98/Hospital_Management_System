@@ -78,9 +78,8 @@
                                                 <button aria-expanded="false" aria-haspopup="true" class="btn ripple btn-outline-primary btn-sm" data-toggle="dropdown" type="button">Actions<i class="fas fa-caret-down mr-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
                                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_patient_history{{$invoice->id}}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;Add patient_history</a>
-                                                    <a class="dropdown-item" href="#"><i class="text-warning far fa-file-alt"></i>&nbsp;&nbsp;Add Review</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;Refer to Radiology</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;Refer to Lab</a>
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_review{{$invoice->id}}"><i class="text-warning far fa-file-alt"></i>&nbsp;&nbsp;Add Review</a>
+                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#laboratorie_conversion{{$invoice->id}}"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;Refer to Lab</a>
                                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger ti-trash"></i>&nbsp;&nbsp;Delete</a>
                                                 </div>
                                             </div>

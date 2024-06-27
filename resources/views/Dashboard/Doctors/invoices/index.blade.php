@@ -58,7 +58,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $invoice->invoice_date }}</td>
                                     <td>{{ $invoice->Service->name ?? $invoice->Group->name }}</td>
-                                    <td><a href="{{ route('patient_history.show', $invoice->patient_id) }}">{{ $invoice->Patient->name }}</a></td>
+                                    <td><a href="{{route('patient_details',$invoice->patient_id)}}">{{ $invoice->Patient->name }}</a></td>
                                     <td>{{ number_format($invoice->price, 2) }}</td>
                                     <td>{{ number_format($invoice->discount_value, 2) }}</td>
                                     <td>{{ $invoice->tax_rate }}%</td>
@@ -81,8 +81,7 @@
                                             <div class="dropdown-menu tx-13">
                                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_patient_history{{ $invoice->id }}"><i class="text-primary fa fa-stethoscope"></i>&nbsp;&nbsp;Add Patient History </a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#add_review{{$invoice->id}}"><i  class="text-warning far fa-file-alt"></i>&nbsp;&nbsp; Add Review </a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_password"><i class="text-primary fas fa-x-ray"></i>&nbsp;&nbsp;Transfer to Radiology</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#update_status"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;Transfer to Laboratory</a>
+                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#laboratorie_conversion{{$invoice->id}}"><i class="text-warning fas fa-syringe"></i>&nbsp;&nbsp;Transfer to Laboratory</a>
                                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete"><i class="text-danger  ti-trash"></i>&nbsp;&nbsp;Delete Data</a>
                                             </div>
                                         </div>
@@ -90,6 +89,7 @@
                                 </tr>
                                 @include('Dashboard.Doctors.Invoices.add_patient_history')
                                 @include('Dashboard.Doctors.Invoices.add_review')
+                                @include('Dashboard.Doctors.Invoices.Laboratorie_conversion')
                             @endforeach
                             </tbody>
                         </table>

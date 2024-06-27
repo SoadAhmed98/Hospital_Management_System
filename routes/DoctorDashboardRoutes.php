@@ -4,7 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Doctor\InvoiceController;
+use App\Http\Controllers\Doctor\LaboratorieController;
 use App\Http\Controllers\Doctor\PatientHistoryController;
+use App\Http\Controllers\Doctor\PatientDetailsController;
 
 Route::group(
     [
@@ -39,6 +41,15 @@ Route::group(
             //############################# review_invoices route ##########################################
             Route::post('add_review', [ PatientHistoryController::class,'addReview'])->name('add_review');
             //############################# end invoices route #############################################
+             
+            Route::get('patient_details/{id}', [PatientDetailsController::class,'index'])->name('patient_details');
+
+
+             //############################# Laboratories route ##########################################
+
+             Route::resource('Laboratories', LaboratorieController::class);
+
+             //############################# end Laboratories route ######################################
 
         });
 
