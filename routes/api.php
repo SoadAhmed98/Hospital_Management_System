@@ -11,7 +11,9 @@ use App\Http\Controllers\Api\APIDoctorsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DiseasePredictionController;
+use App\Http\Controllers\Appointmentes\AppointmentController;
 
+Route::post('/appointments', [AppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
 
 Route::apiResource('departments', APIDepartmentController::class);
