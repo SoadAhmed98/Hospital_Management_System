@@ -8,6 +8,7 @@ use App\Models\Appointment;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AppointmentConfirmation;
 use Symfony\Component\Mailer\Bridge\Postmark\Transport\PostmarkApiTransport;
+use Twilio\Rest\Client;
 
 class appointmentController extends Controller
 {
@@ -31,9 +32,25 @@ class appointmentController extends Controller
             'type' => 'Confirmed',
             'appointment' => $request->appointment
         ]);
-    
+    //send mail
         Mail::to($appointment->email)->send(new AppointmentConfirmation($appointment->name,$appointment->appointment));
-    
+    // //send sms message
+    //  // send message mob
+    //  $receiverNumber = $appointment->phone;
+    //   // Ensure the phone number is in E.164 format
+    // if (!preg_match('/^\+/', $receiverNumber)) {
+    //     $receiverNumber = '+2' . $receiverNumber; // Egypt country code is +20
+    // }
+    //  $message = "Dear" . " " . $appointment->name . " " . "Your appointment has been booked on". $appointment->appointment;
+
+    //  $account_sid = getenv("TWILIO_SID");
+    //  $auth_token = getenv("TWILIO_TOKEN");
+    //  $twilio_number = getenv("TWILIO_FROM");
+    //  $client = new Client($account_sid, $auth_token);
+    //  $client->messages->create($receiverNumber,[
+    //      'from' => $twilio_number,
+    //      'body' => $message
+    //  ]);
         session()->flash('add');
         return back();
     }
