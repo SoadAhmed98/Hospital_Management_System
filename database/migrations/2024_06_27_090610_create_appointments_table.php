@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
+            $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->enum('type', ['unconfirmed', 'confirmed', 'finished'])->default('unconfirmed');
+            $table->enum('type', ['Unconfirmed', 'Confirmed', 'Completed'])->default('Unconfirmed');
             $table->dateTime('appointment')->nullable();
             $table->text('notes')->nullable();
-            $table->foreignId('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
-            $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
             $table->timestamps();
         });
     }

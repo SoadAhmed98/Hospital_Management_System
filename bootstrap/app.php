@@ -6,6 +6,8 @@ use App\Http\Middleware\AuthDoctor;
 use App\Http\Middleware\GuestAdmin;
 use App\Http\Middleware\GuestDoctor;
 use Illuminate\Foundation\Application;
+use App\Http\Middleware\CheckAcceptType;
+use App\Http\Middleware\EmailVerification;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -22,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->statefulApi();
         $middleware->web(append: [
             \App\Http\Middleware\HandleInertiaRequests::class,
             \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
@@ -37,6 +40,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.doctor' => AuthDoctor::class,
             'guest.admin'=>GuestAdmin::class,
             'guest.doctor'=>GuestDoctor::class,
+            'AcceptTypeJson'=>CheckAcceptType::class,
+            'emailVerified'=>EmailVerification::class
     ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

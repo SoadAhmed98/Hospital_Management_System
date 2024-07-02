@@ -36,7 +36,10 @@ use App\Interfaces\Services\SingleServiceRepositoryInterface;
 use App\Repository\Services\SingleServiceRepository;
 use App\Interfaces\Services\SingleServiceAPIRepositoryInterface;
 use App\Repository\Services\SingleServiceAPIRepository;
-
+use App\Interfaces\Appointmentes\AppointmentRepositoryInterface;
+use App\Repository\Appointmentes\AppointmentRepository;
+use App\Interfaces\Appointmentes\AppointmentAPIRepositoryInterface;
+use App\Repository\Appointmentes\AppointmentAPIRepository;
 use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
 use App\Repository\doctor_dashboard\InvoicesRepository;
 
@@ -64,6 +67,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PaymentAPIRepositoryInterface::class, PaymentAPIRepository::class);
         $this->app->bind(ReceiptRepositoryInterface::class, ReceiptRepository::class);
         $this->app->bind(ReceiptAPIRepositoryInterface::class, ReceiptAPIRepository::class);
+
+        $this->app->bind(AppointmentRepositoryInterface::class, AppointmentRepository::class);
+        $this->app->bind(AppointmentAPIRepositoryInterface::class, AppointmentAPIRepository::class);
 
         $this->app->bind(SingleServiceAPIRepositoryInterface::class, SingleServiceAPIRepository::class);
 
