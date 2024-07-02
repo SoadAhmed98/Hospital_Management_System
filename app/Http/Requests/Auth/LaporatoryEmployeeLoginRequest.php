@@ -42,7 +42,7 @@ class LaporatoryEmployeeLoginRequest extends FormRequest
         $this->ensureIsNotRateLimited();
 
        
-        if (! Auth::guard('lap_employee')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('lab_employee')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

@@ -9,3 +9,4 @@ Route::get('/', function () {
 
 require __DIR__.'/auth-admin.php';
 require __DIR__.'/auth-doctor.php';
+require __DIR__.'/auth-lab_employee.php';

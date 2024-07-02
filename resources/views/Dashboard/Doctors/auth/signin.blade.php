@@ -48,6 +48,7 @@
                                                     <option value="" selected disabled>choose your role</option>
                                                     <option value="admin">Admin</option>
                                                     <option value="doctor">Doctor</option>
+                                                    <option value="lab_employee">Laboratory Employee</option>
                                                  
                                                 </select>
                                             </div>
@@ -90,6 +91,23 @@
                                                 </div>
                                             </div>
 
+                                               {{--form Laboratory Employee--}}
+                                               <div class="panel" id="lab_employee">
+                                                <h6>Login as Laboratory Employee</h6>
+                                                <form method="POST" action="{{ route('lab_employee.lab_employee-login') }}">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <label>Email</label> <input  class="form-control" placeholder="Enter your email" type="email" name="email" :value="old('email')" required autofocus>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Password</label> <input class="form-control" placeholder="Enter your password"   type="password"name="password" required autocomplete="current-password" >
+                                                    </div><button type="submit" class="btn btn-main-primary btn-block">Sign In</button>
+                                                   
+                                                </form>
+                                                <div class="main-signin-footer mt-5">
+                                                    <p><a href="{{route('lab_employee.password.request')}}">Forgot password?</a></p>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

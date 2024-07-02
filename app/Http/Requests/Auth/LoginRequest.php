@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
-            'user_type' => ['required', 'string', 'in:admin,doctor,lap_employee'], // Adjust 'in' values based on your user types
+            'user_type' => ['required', 'string', 'in:admin,doctor,lab_employee'], // Adjust 'in' values based on your user types
         ];
     }
 
