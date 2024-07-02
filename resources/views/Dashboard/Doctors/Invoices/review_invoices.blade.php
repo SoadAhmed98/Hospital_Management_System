@@ -86,6 +86,9 @@
                                         </td>
                                     </tr>
                                     @include('Dashboard.Doctors.Invoices.add_patient_history')
+                                    @include('Dashboard.Doctors.Invoices.add_review')
+                                    @include('Dashboard.Doctors.Invoices.Laboratorie_conversion')
+                                    
                                 @endforeach
                             </tbody>
                         </table>

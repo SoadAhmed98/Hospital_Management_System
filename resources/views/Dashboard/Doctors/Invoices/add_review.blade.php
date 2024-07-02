@@ -17,7 +17,7 @@
                 <input type="hidden" name="doctor_id" value="{{ $invoice->doctor_id }}">
 
                 <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Diagnosis</label>
+                    <label for="exampleFormControlTextarea1">Diagnosis</label> 
                     <textarea class="form-control" name="diagnosis" rows="6"></textarea>
                 </div>
 

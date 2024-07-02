@@ -52,7 +52,7 @@ class PatientHistoryRepository implements PatientHistoryRepositoryInterface
             $this->invoice_status($request->invoice_id,2);
             $patient_history = new PatientHistory();
             $patient_history->date = date('Y-m-d');
-            $patient_history->review_date = date('Y-m-d H:i:s');
+            $patient_history->review_date =  $request->review_date;
             $patient_history->diagnosis = $request->diagnosis;
             $patient_history->medicine = $request->medicine;
             $patient_history->invoice_id = $request->invoice_id;
