@@ -54,5 +54,14 @@ class appointmentController extends Controller
         session()->flash('add');
         return back();
     }
-    
+    public function destroy($id)
+{
+    $appointment = Appointment::findOrFail($id);
+    $appointment->delete();
+
+    session()->flash('delete', 'Appointment deleted successfully');
+    return back();
+}
+
+
 }
