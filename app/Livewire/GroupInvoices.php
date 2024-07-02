@@ -56,7 +56,7 @@ class GroupInvoices extends Component
 
     public function get_price()
     {
-        $this->price =Group::where('id', $this->Group_id)->first()->price;
+        $this->price =Group::where('id', $this->Group_id)->first()->Total_with_tax;
         $this->discount_value = Group::where('id', $this->Group_id)->first()->discount_value;
         $this->tax_rate = Group::where('id', $this->Group_id)->first()->tax_rate;
         $this->calculateTotals();
