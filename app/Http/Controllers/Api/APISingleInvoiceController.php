@@ -37,14 +37,19 @@ class APISingleInvoiceController extends Controller
 
     public function print($patient_id)
     {
-        $single_invoices = Invoice::where('invoice_type', 1)
-            ->where('patient_id', $patient_id)
-            ->get();
-
-        return response()->json([
-            'single_invoices' => $single_invoices,
-        ]);
+        try {
+            $single_invoices = Invoice::where('invoice_type', 1)
+                ->where('patient_id', $patient_id)
+                ->get();
+    
+            return response()->json(['single_invoices' => $single_invoices], 200);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json(['error' => 'No invoices found for the patient.'], 404);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
+    
 
     public function getDepartment($doctor_id)
     {
@@ -227,15 +232,20 @@ public function destroy($id)
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
         return response()->json(['message' => 'Invoice deleted successfully.']);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return response()->json(['error' => 'Invoice not found.'], 404);
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
 }
 
 
-    public function show($id)
-    {
+
+public function show($id)
+{
+    try {
         $single_invoice = Invoice::findOrFail($id);
+
         return response()->json([
             'invoice_date' => $single_invoice->invoice_date,
             'doctor_id' => $single_invoice->Doctor->name,
@@ -246,6 +256,11 @@ public function destroy($id)
             'discount_value' => $single_invoice->discount_value,
             'tax_rate' => $single_invoice->tax_rate,
             'total_with_tax' => $single_invoice->total_with_tax,
-        ]);
+        ], 200);
+    } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        return response()->json(['error' => 'Invoice not found.'], 404);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
 }
