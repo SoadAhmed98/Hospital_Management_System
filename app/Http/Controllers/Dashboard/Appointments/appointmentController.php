@@ -23,6 +23,7 @@ class appointmentController extends Controller
         $appointments = Appointment::where('type','Confirmed')->get();
         return view('Dashboard.appointments.index2',compact('appointments'));
     }
+    
 
     public function approval(Request $request, $id){
         $appointment = Appointment::findOrFail($id);
