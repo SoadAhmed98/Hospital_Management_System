@@ -38,7 +38,7 @@ class Doctor extends Authenticatable implements MustVerifyEmail
         'password',
         'remember_token',
     ];
-
+    protected $guard='doctor';
     /**
      * Get the attributes that should be cast.
      *
