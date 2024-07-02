@@ -151,6 +151,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'patients' => [
+            'provider' => 'patients',
+            'table' => 'patient_password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
     ],
 
     /*
@@ -165,5 +171,7 @@ return [
     */
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
+    'code_timeout'=>10800
+    
 
 ];

@@ -18,10 +18,28 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('address')->nullable(); // Add address field
             $table->string('password'); // Add password field
-            $table->date('birth_date');
-            $table->enum('gender', ['mail', 'femail']);
-            $table->enum('blood_group', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']);
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', ['mail', 'femail'])->nullable();
+            $table->enum('blood_group', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])->nullable();
+            $table->integer('code')->nullable();
+            $table->timestamp('code_expired_at')->nullable();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->rememberToken();
             $table->timestamps();
+        });
+        Schema::create('patient_password_reset_tokens', function (Blueprint $table) {
+            $table->string('email')->primary();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
+        });
+
+        Schema::create('patient_sessions', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->foreignId('patient_id')->nullable()->index();
+            $table->string('ip_address', 45)->nullable();
+            $table->text('patient_agent')->nullable();
+            $table->longText('payload');
+            $table->integer('last_activity')->index();
         });
     }
 
@@ -31,5 +49,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('patients');
+        Schema::dropIfExists('patient_password_reset_tokens');
+        Schema::dropIfExists('patient_sessions');
     }
 };

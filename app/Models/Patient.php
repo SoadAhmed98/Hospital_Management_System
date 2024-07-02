@@ -2,24 +2,42 @@
 
 namespace App\Models;
 
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\Contracts\HasApiTokens;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Patient extends Model
+class Patient extends Authenticatable
 {
-    use HasFactory,Notifiable;
+    use HasApiTokens,HasFactory,Notifiable;
     protected $fillable = [
+        'name',
         'email',
-        'Password',
+        'password',
         'birth_date',
-        'Phone',
-        'Gender',
-        'Blood_Group',
+        'phone',
+        'gender',
+        'blood_Group',
         'address', 
+        'code'
     ];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
     public function doctor()
     {
         return $this->belongsTo(Invoice::class,'doctor_id');
