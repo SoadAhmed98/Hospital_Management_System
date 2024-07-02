@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DiseasePredictionController;
 use App\Http\Controllers\Api\PatientInvoiceController;
+use App\Http\Controllers\Api\APIGroupInvoicesController;
+
 
 use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
@@ -65,6 +67,6 @@ Route::get('patients/{patientId}/invoices/completed', [PatientInvoiceController:
 Route::apiResource('single-invoices', APISingleInvoiceController::class);
 Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'print']);
 
-
+Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
 
 
