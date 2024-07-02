@@ -10,12 +10,20 @@ use App\Http\Controllers\Api\APIDepartmentController;
 use App\Http\Controllers\DiseasePredictionController;
 
 use App\Http\Controllers\Api\APISingleServiceController;
+
+use App\Livewire\CreateGroupServices;
+use App\Http\Controllers\Api\APIDoctorsController;
+use App\Http\Controllers\Api\APISingleInvoiceController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DiseasePredictionController;
+use App\Http\Controllers\Api\PatientInvoiceController;
+
 use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
 use App\Http\Controllers\Api\PatientAuth\EmailVerificationController;
 
 use App\Http\Controllers\Appointmentes\AppointmentController;
-
 
 Route::post('/appointments', [AppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
@@ -51,4 +59,16 @@ Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
         Route::middleware(['auth:sanctum','emailVerified'])->get('/logout','logout');
     });
 });
+
+
+Route::get('patients/{patientId}/invoices', [PatientInvoiceController::class, 'index']);
+Route::get('patients/{patientId}/invoices/review', [PatientInvoiceController::class, 'reviewInvoices']);
+Route::get('patients/{patientId}/invoices/completed', [PatientInvoiceController::class, 'completedInvoices']);
+
+
+Route::apiResource('single-invoices', APISingleInvoiceController::class);
+Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'print']);
+
+
+
 

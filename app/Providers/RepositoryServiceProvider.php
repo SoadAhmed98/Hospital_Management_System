@@ -43,6 +43,9 @@ use App\Repository\Appointmentes\AppointmentAPIRepository;
 use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
 use App\Repository\doctor_dashboard\InvoicesRepository;
 
+use App\Interfaces\doctor_dashboard\PatientHistoryRepositoryInterface;
+use App\Repository\doctor_dashboard\PatientHistoryRepository;
+
 use App\Interfaces\doctor_dashboard\LaboratoriesRepositoryInterface;
 use App\Repository\doctor_dashboard\LaboratoriesRepository;
 
@@ -78,6 +81,8 @@ class RepositoryServiceProvider extends ServiceProvider
 
         // doctor
         $this->app->bind(InvoicesRepositoryInterface::class, InvoicesRepository::class);
+
+        $this->app->bind(PatientHistoryRepositoryInterface::class, PatientHistoryRepository::class);
 
         $this->app->bind(LaboratoriesRepositoryInterface::class, LaboratoriesRepository::class);
 

@@ -35,4 +35,9 @@ class Invoice extends Model
     {
         return $this->belongsTo(Department::class,'department_id');
     }
+
+    public function patientHistory()
+    {
+        return $this->hasOne(PatientHistory::class, 'invoice_id');
+    }
 }
