@@ -1,13 +1,9 @@
 <?php
-use App\Livewire\CreateGroupServices;
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\APIDoctorsController;
 use App\Http\Controllers\Api\APIPatientController;
 use App\Http\Controllers\Api\APIPaymentController;
 use App\Http\Controllers\Api\APIReceiptController;
 use App\Http\Controllers\Api\APIDepartmentController;
-use App\Http\Controllers\DiseasePredictionController;
 
 use App\Http\Controllers\Api\APISingleServiceController;
 

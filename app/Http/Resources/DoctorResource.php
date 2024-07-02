@@ -19,7 +19,8 @@ class DoctorResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'fees' => $this->consultation_fees,
-            'department' => $this->department->name,
+            'department_id' => $this->department->id,
+            'department_name' => $this->department->name,
             'image' => $this->image ? "http://127.0.0.1:80/Dashboard/img/doctors/" . $this->image->filename : null,
             'works_day' => $this->doctorworkschedule->pluck('day'),
           
