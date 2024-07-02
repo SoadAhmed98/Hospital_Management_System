@@ -8,13 +8,17 @@ use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PaymentAccountController;
 use App\Http\Controllers\Dashboard\ReceiptAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
+use App\Http\Controllers\Dashboard\appointments\appointmentController;
+
 use App\Livewire\CreateGroupServices;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
     [
         // 'prefix' => LaravelLocalization::setLocale(),
+
         // 'middleware' => [ 'auth:admin']
+
     ], function(){
 
             //############################# Departments route ##########################################
@@ -65,8 +69,18 @@ Route::group(
            Route::view('GroupInvoices','livewire.GroupInvoices.index')->name('group_invoices');
         
            //############################# end GroupInvoices route ##########################################
+           
+           //#############################  appointments route ##########################################
 
-       
+           Route::get('appointments',[AppointmentController::class,'index'])->name('appointments.index');
+           Route::put('appointments/approval/{id}',[AppointmentController::class,'approval'])->name('appointments.approval');
+           Route::get('appointments/approval',[AppointmentController::class,'index2'])->name('appointments.index2');
+           Route::get('appointments/complete',[AppointmentController::class,'index3'])->name('appointments.index3');
+
+           Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
+
+           //############################# end appointments route ##########################################
+           
         Route::resource('backend', DashboardController::class);
 
 

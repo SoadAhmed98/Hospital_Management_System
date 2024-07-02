@@ -8,11 +8,16 @@ use App\Http\Controllers\Api\APIPaymentController;
 use App\Http\Controllers\Api\APIReceiptController;
 use App\Http\Controllers\Api\APIDepartmentController;
 use App\Http\Controllers\DiseasePredictionController;
+
 use App\Http\Controllers\Api\APISingleServiceController;
 use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
 use App\Http\Controllers\Api\PatientAuth\EmailVerificationController;
 
+use App\Http\Controllers\Appointmentes\AppointmentController;
+
+
+Route::post('/appointments', [AppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
 
 Route::apiResource('departments', APIDepartmentController::class);

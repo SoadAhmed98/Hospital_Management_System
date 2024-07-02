@@ -29,6 +29,15 @@ class Doctor extends Authenticatable implements MustVerifyEmail
      {
          return $this->belongsToMany(WorkSchedule::class,'doctor_work_schedule');
      }
+     public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function appointmentDoctors()
+    {
+        return $this->hasMany(AppointmentDoctor::class);
+    }
          /**
      * The attributes that should be hidden for serialization.
      *
