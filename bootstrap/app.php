@@ -38,7 +38,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'guest.admin'=>GuestAdmin::class,
             'guest.doctor'=>GuestDoctor::class,
             'AcceptTypeJson'=>CheckAcceptType::class,
-            'emailVerified'=>EmailVerification::class,
+            'Verified'=>EmailVerification::class,
             'guest'=>RedirectIfAuthenticated::class,
             'auth'=>Authenticate::class
     ]);

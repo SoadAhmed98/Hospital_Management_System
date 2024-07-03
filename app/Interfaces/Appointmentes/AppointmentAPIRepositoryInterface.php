@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Repositories\Interfaces;
-
-use App\Models\Appointment;
+namespace App\Interfaces\Appointmentes;
 
 interface AppointmentAPIRepositoryInterface
 {
-    public function create(array $data): Appointment;
+   
+    public function store($request);
 }
