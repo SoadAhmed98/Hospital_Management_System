@@ -1,18 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\APIDoctorsController;
 use App\Http\Controllers\Api\APIPatientController;
 use App\Http\Controllers\Api\APIPaymentController;
 use App\Http\Controllers\Api\APIReceiptController;
 use App\Http\Controllers\Api\APIDepartmentController;
+use App\Http\Controllers\DiseasePredictionController;
 
 use App\Http\Controllers\Api\APISingleServiceController;
 
 use App\Livewire\CreateGroupServices;
-use App\Http\Controllers\Api\APIDoctorsController;
 use App\Http\Controllers\Api\APISingleInvoiceController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DiseasePredictionController;
 use App\Http\Controllers\Api\PatientInvoiceController;
 use App\Http\Controllers\Api\APIGroupInvoicesController;
 

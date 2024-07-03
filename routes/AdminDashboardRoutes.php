@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\PatientController;
 use App\Http\Controllers\Dashboard\PaymentAccountController;
 use App\Http\Controllers\Dashboard\ReceiptAccountController;
 use App\Http\Controllers\Dashboard\SingleServiceController;
+use App\Http\Controllers\Dashboard\LaboratorieEmployeeController;
 use App\Http\Controllers\Dashboard\appointments\appointmentController;
 
 use App\Livewire\CreateGroupServices;
@@ -80,6 +81,13 @@ Route::group(
            Route::delete('/appointments/{id}', [AppointmentController::class, 'destroy'])->name('appointments.destroy');
 
            //############################# end appointments route ##########################################
+
+
+        //############################# laboratorie_employee route ##########################################
+
+        Route::resource('laboratorie_employee', LaboratorieEmployeeController::class);
+
+        //############################# end laboratorie_employee route ######################################
            
         Route::resource('backend', DashboardController::class);
 
