@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Appointmentes;
 
 use App\Models\Appointment;
 use App\Interfaces\Appointmentes\AppointmentAPIRepositoryInterface;
