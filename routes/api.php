@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Api\PatientInvoiceController;
 use App\Http\Controllers\Api\APIGroupInvoicesController;
 
+use App\Http\Controllers\Api\APIPatientDetailsController;
 
 use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
@@ -69,4 +70,5 @@ Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'pr
 
 Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
 
+Route::get('patient-details/{id}', [APIPatientDetailsController::class, 'index']);
 
