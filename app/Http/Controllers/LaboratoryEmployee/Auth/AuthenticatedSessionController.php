@@ -39,8 +39,6 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('lab_employee')->logout();
 
-        $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect()->route('lab_employee.login');

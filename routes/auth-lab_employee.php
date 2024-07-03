@@ -13,7 +13,7 @@ use App\Http\Controllers\LaboratoryEmployee\Auth\EmailVerificationNotificationCo
 
 Route::prefix('lab_employee')->name('lab_employee.')->group(function(){
 
-    Route::middleware('guest')->group(function () {
+    Route::middleware('guest:lab_employee')->group(function () {
         Route::get('register', [RegisteredUserController::class, 'create'])
                     ->name('register');
     
