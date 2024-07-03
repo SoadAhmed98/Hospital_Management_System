@@ -49,6 +49,9 @@ use App\Repository\doctor_dashboard\PatientHistoryRepository;
 use App\Interfaces\doctor_dashboard\LaboratoriesRepositoryInterface;
 use App\Repository\doctor_dashboard\LaboratoriesRepository;
 
+use App\Interfaces\LaboratorieEmployee\LaboratorieEmployeeRepositoryInterface;
+use App\Repository\LaboratorieEmployee\LaboratorieEmployeeRepository;
+
 
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -85,6 +88,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(PatientHistoryRepositoryInterface::class, PatientHistoryRepository::class);
 
         $this->app->bind(LaboratoriesRepositoryInterface::class, LaboratoriesRepository::class);
+
+        $this->app->bind(LaboratorieEmployeeRepositoryInterface::class, LaboratorieEmployeeRepository::class);
 
 
     }
