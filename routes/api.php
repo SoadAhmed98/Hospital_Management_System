@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiAppointmentController;
 use App\Livewire\CreateGroupServices;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\APIDoctorsController;
@@ -15,10 +16,9 @@ use App\Http\Controllers\Api\APISingleServiceController;
 use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\PasswordController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
-use App\Http\Controllers\Appointmentes\AppointmentController;
 use App\Http\Controllers\Api\PatientAuth\EmailVerificationController;
 
-Route::post('/appointments', [AppointmentController::class, 'store']);
+Route::post('/appointments', [ApiAppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
 
 Route::apiResource('departments', APIDepartmentController::class);
