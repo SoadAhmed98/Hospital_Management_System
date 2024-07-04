@@ -33,6 +33,8 @@ Route::apiResource('services', APISingleServiceController::class);
 Route::apiResource('patients', APIPatientController::class);
 Route::apiResource('payments', APIPaymentController::class);
 Route::apiResource('receipts', APIReceiptController::class);
+Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
+
 Route::apiResource('doctors', APIDoctorsController::class);
 Route::get('groupservices', function () {
     $component = app()->make(CreateGroupServices::class);
@@ -71,4 +73,5 @@ Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'pr
 Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
 
 Route::get('patient-details/{id}', [APIPatientDetailsController::class, 'index']);
+
 

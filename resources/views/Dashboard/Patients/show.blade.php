@@ -37,7 +37,7 @@
                                             <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Payments</a>
                                             </li>
                                             <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Account Statement</a></li>
-                                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">Radiology</a>
+                                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">History of Diagnosis</a>
                                             </li>
                                             <li class="nav-item"><a href="#tab6" class="nav-link" data-toggle="tab">Laboratory</a>
                                             </li>
@@ -219,13 +219,27 @@
 
 
                                         <div class="tab-pane" id="tab5">
-                                            <p>praesentium voluptatum deleniti atque corrquas molestias excepturi sint
-                                                occaecati cupiditate non provident,</p>
-                                            <p class="mb-0">similique sunt in culpa qui officia deserunt mollitia animi,
-                                                id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-                                                expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
-                                                optio cumque nihil impedit quo minus id quod maxime placeat facere
-                                                possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+                                        <br>
+                                            <div class="vtimeline">
+                                                @foreach($patient_records as $patient_record)
+                                                    <div class="timeline-wrapper {{ $loop->iteration % 2 == 0 ? 'timeline-inverted' : '' }} timeline-wrapper-primary">
+                                                        <div class="timeline-badge"><i class="las la-check-circle"></i></div>
+                                                        <div class="timeline-panel">
+                                                            <div class="timeline-heading">
+                                                                <h6 class="timeline-title">Art Ramadani posted a status update</h6>
+                                                            </div>
+                                                            <div class="timeline-body">
+                                                                <p>{{$patient_record->diagnosis}}</p>
+                                                            </div>
+                                                            <div class="timeline-footer d-flex align-items-center flex-wrap">
+                                                                <i class="fas fa-user-md"></i>&nbsp;
+                                                                <span>{{$patient_record->Doctor->name}}</span>
+                                                                <span class="mr-auto"><i class="fe fe-calendar text-muted mr-1"></i>{{$patient_record->date}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                         <div class="tab-pane" id="tab6">
                                             <p>praesentium et quas molestias excepturi sint occaecati cupiditate non

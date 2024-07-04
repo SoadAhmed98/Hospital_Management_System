@@ -39,4 +39,9 @@ class APIReceiptController extends Controller
     {
         return $this->receiptRepository->destroy($id);
     }
+
+    public function getReceiptsByPatient($patientId)
+    {
+        return $this->receiptRepository->getReceiptsByPatient($patientId);
+    }
 }
