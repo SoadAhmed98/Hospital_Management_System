@@ -10,8 +10,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Pages</h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
+                <h4 class="content-title mb-0 my-auto">Pages</h4>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                     <div class="text-wrap">
                         <div class="example">
                             <div class="panel panel-primary tabs-style-1">
-                                <div class=" tab-menu-heading">
+                                <div class="tab-menu-heading">
                                     <div class="tabs-menu1">
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs main-nav-line">
@@ -255,32 +255,39 @@
                                                     <div class="my-auto">
                                                         <div class="d-flex">
                                                             <h4 class="content-title mb-0 my-auto">Lab Reports</h4>
-                                                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $patient_Laboratories->first()->Patient->name }}</span>
+                                                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">
+                                                                / {{ optional($patient_Laboratories->first())->Patient->name ?? 'No Patient' }}
+                                                            </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- breadcrumb -->
-                                                @foreach($patient_Laboratories as $laboratory)
-                                                    <div class="form-group">
-                                                        <label for="exampleFormControlTextarea1">Lab Technician Notes</label>
-                                                        <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $laboratory->description_employee }}</textarea>
+                                                @if($patient_Laboratories->isEmpty())
+                                                    <div class="alert alert-info" role="alert">
+                                                        No lab tests have been performed for this patient.
                                                     </div>
-                                                      <br><br>
-                                                    <!-- Gallery -->
-                                                    <div class="demo-gallery">
-                                                        <ul id="lightgallery" class="list-unstyled row row-sm pr-0">
-                                                            @foreach($laboratory->images as $image)
-                                                                <li class="col-sm-6 col-lg-4" data-responsive="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" data-src="{{ URL::asset('Dashboard/img/Rays/'.$image->filename) }}">
-                                                                    <a href="#">
-                                                                        <img width="50px" height="350px" class="img-responsive" src="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" alt="No Image">
-                                                                    </a>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </div>
-                                                    <!-- /Gallery -->
-
-                                                @endforeach
+                                                @else
+                                                    @foreach($patient_Laboratories as $laboratory)
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1">Lab Technician Notes</label>
+                                                            <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $laboratory->description_employee }}</textarea>
+                                                        </div>
+                                                        <br><br>
+                                                        <!-- Gallery -->
+                                                        <div class="demo-gallery">
+                                                            <ul id="lightgallery" class="list-unstyled row row-sm pr-0">
+                                                                @foreach($laboratory->images as $image)
+                                                                    <li class="col-sm-6 col-lg-4" data-responsive="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" data-src="{{ URL::asset('Dashboard/img/Rays/'.$image->filename) }}">
+                                                                        <a href="#">
+                                                                            <img width="50px" height="350px" class="img-responsive" src="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" alt="No Image">
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /Gallery -->
+                                                    @endforeach
+                                                @endif
 
                                                 <!-- row closed -->
                                                 </div>
@@ -298,9 +305,6 @@
                 </div>
             </div>
         </div>
-
-
-    </div>
     </div>
     <!-- /row -->
     </div>
