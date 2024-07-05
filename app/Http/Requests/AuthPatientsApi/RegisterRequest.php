@@ -25,7 +25,11 @@ class RegisterRequest extends FormRequest
             'name' => 'required|string|max:255',
             'email' => 'required|regex:/^[a-zA-Z0-9]+@[a-zA-Z]+(\.[a-zA-Z]{2,})+$/|unique:patients,email',
             'password' => 'required|regex:/^(?=.*?[A-Za-z])(?=.*?[@$!%*?&])(?=.*?[0-9]).{8,}$/|confirmed',
-            // 'phone' => 'required|regex:/^01[0125][0-9]{8}$/',
+            'phone' => 'required|regex:/^01[0125][0-9]{8}$/',
+            'address' => 'required|string|max:255',
+            'birth_date' => 'required|date|before_or_equal:today',
+            'gender' => 'required|in:male,female',
+            'blood_group' => 'required|in:A+,A-,B+,B-,AB+,AB-,O+,O-',
         ];
     }
     public function messages()
@@ -33,7 +37,7 @@ class RegisterRequest extends FormRequest
         return [
             'email.regex' => 'The email format is invalid.',
             'password.regex' => 'Password must be at least 8 characters and contain a mix of lowercase and uppercase letters, numbers, and at least one special character.',
-            // 'phone.regex' => 'The phone number format is invalid.',
+            'phone.regex' => 'The phone number format is invalid.',
         ];
     }
 }
