@@ -23,6 +23,8 @@ use App\Http\Controllers\Api\PatientAuth\RegisterController;
 use App\Http\Controllers\Api\PatientAuth\EmailVerificationController;
 
 use App\Http\Controllers\Appointmentes\AppointmentController;
+use App\Http\Controllers\Api\APIPatientAccountsController;
+
 
 Route::post('/appointments', [AppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
@@ -73,5 +75,8 @@ Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'pr
 Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
 
 Route::get('patient-details/{id}', [APIPatientDetailsController::class, 'index']);
+
+Route::get('/patient-accounts/{id}', [APIPatientAccountsController::class, 'show']);
+
 
 

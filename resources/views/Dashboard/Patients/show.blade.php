@@ -204,7 +204,14 @@
                                                         <td class="alert alert-primary">{{ number_format($Debit = $Patient_accounts->sum('Debit'), 2) }}</td>
                                                         <td class="alert alert-primary">{{ number_format($credit = $Patient_accounts->sum('credit'), 2) }}</td>
                                                         <td class="alert alert-danger">
-                                                            <span class="text-danger"> {{$Debit - $credit}}   {{ $Debit-$credit > 0 ? 'Debit' :'Credit'}}</span>                                                        </td>
+                                                            @php
+                                                                $balance = $Debit - $credit;
+                                                            @endphp
+                                                            <span class="text-danger">
+                                                                {{ number_format($balance, 2) }}
+                                                                {{ abs($balance) < 0.01 ? 'Credit' : ($balance > 0 ? 'Debit' : 'Credit') }}
+                                                            </span>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -242,13 +249,45 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="tab6">
-                                            <p>praesentium et quas molestias excepturi sint occaecati cupiditate non
-                                                provident,</p>
-                                            <p class="mb-0">similique sunt in culpa qui officia deserunt mollitia animi,
-                                                id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-                                                expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
-                                                optio cumque nihil impedit quo minus id quod maxime placeat facere
-                                                possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+                                        
+                                                <!-- breadcrumb -->
+                                                <div class="breadcrumb-header justify-content-between">
+                                                    <div class="my-auto">
+                                                        <div class="d-flex">
+                                                            <h4 class="content-title mb-0 my-auto">Lab Reports</h4>
+                                                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ {{ $patient_Laboratories->first()->Patient->name }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- breadcrumb -->
+                                                @foreach($patient_Laboratories as $laboratory)
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1">Lab Technician Notes</label>
+                                                        <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $laboratory->description_employee }}</textarea>
+                                                    </div>
+                                                      <br><br>
+                                                    <!-- Gallery -->
+                                                    <div class="demo-gallery">
+                                                        <ul id="lightgallery" class="list-unstyled row row-sm pr-0">
+                                                            @foreach($laboratory->images as $image)
+                                                                <li class="col-sm-6 col-lg-4" data-responsive="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" data-src="{{ URL::asset('Dashboard/img/Rays/'.$image->filename) }}">
+                                                                    <a href="#">
+                                                                        <img width="50px" height="350px" class="img-responsive" src="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" alt="No Image">
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                    <!-- /Gallery -->
+
+                                                @endforeach
+
+                                                <!-- row closed -->
+                                                </div>
+                                                <!-- Container closed -->
+                                                </div>
+                                                <!-- main-content closed -->
+
                                         </div>
                                     </div>
                                 </div>
