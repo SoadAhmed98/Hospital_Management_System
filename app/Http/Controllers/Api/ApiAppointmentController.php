@@ -21,7 +21,7 @@ class ApiAppointmentController extends Controller
             'doctor_id' => 'required|exists:doctors,id',
             'department_id' => 'required|exists:departments,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:appointments',
             'phone' => 'required|string|max:255',
             'notes' => 'nullable|string',
         ]);
