@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FatoorahRequest extends FormRequest
+class AppointmentFatoorahRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,9 @@ class FatoorahRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'CustomerName'=>'required|string|max:255',
-           'CustomerEmail' => 'required|exists:patients,email|email',
-           'InvoiceValue'=>'required|integer'
+            'CustomerName'=>'required|string|max:255',
+            'CustomerEmail' => 'required|exists:patients,email|email',
+            'InvoiceValue'=>'required|integer'
         ];
     }
 }
