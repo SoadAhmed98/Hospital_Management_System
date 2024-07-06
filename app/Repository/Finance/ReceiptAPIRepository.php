@@ -109,4 +109,15 @@ class ReceiptAPIRepository implements ReceiptAPIRepositoryInterface
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function getReceiptsByPatient($patientId): JsonResponse
+    {
+        try {
+            $receipts = ReceiptAccount::where('patient_id', $patientId)->get();
+            return response()->json($receipts);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 }

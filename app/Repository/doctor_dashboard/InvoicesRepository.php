@@ -4,6 +4,7 @@ namespace App\Repository\doctor_dashboard;
 
 use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
 use App\Models\Invoice;
+use App\Models\Laboratorie;
 use Illuminate\Support\Facades\Auth;
 
 class InvoicesRepository implements InvoicesRepositoryInterface
@@ -28,6 +29,16 @@ class InvoicesRepository implements InvoicesRepositoryInterface
      {
          $invoices = Invoice::where('doctor_id', Auth::user()->id)->where('invoice_status', 3)->get();
          return view('Dashboard.Doctors.Invoices.completed_invoices', compact('invoices'));
+     }
+    
+     public function showLaboratorie($id)
+     {
+         $laboratories = Laboratorie::findorFail($id);
+         if($laboratories->doctor_id !=auth()->user()->id){
+             //abort(404);
+             return redirect()->route('404');
+         }
+         return view('Dashboard.Doctors.Invoices.view_laboratories', compact('laboratories'));
      }
  
 }
