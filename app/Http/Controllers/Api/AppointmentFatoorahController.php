@@ -7,17 +7,17 @@ use App\Traits\ApiTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\FatoorahRequest;
 use App\Http\Services\FatoorahServices;
+use App\Http\Requests\AppointmentFatoorahRequest;
 
-class FatoorahController extends Controller
+class AppointmentFatoorahController extends Controller
 {
     private $fatoorahServices;
     public function __construct(FatoorahServices $fatoorahServices)
     {
         $this->fatoorahServices = $fatoorahServices;
     }
-    public function payment(FatoorahRequest $request)
+    public function payment(AppointmentFatoorahRequest $request)
     {
         $token = $request->header('authorization');
         $patient = Auth::guard('sanctum')->user();
@@ -26,8 +26,8 @@ class FatoorahController extends Controller
         $validatedData = $request->validated();
 
         $additionalData = [
-            'CallBackUrl'        => env('success_url'),
-            'ErrorUrl'           => env('error_url'), //or 'https://example.com/error.php'
+            'CallBackUrl'        => env('invoice_success_url'),
+            'ErrorUrl'           => env('invoice_error_url'), //or 'https://example.com/error.php'
             'Language'           => 'en', //or 'ar'
             'NotificationOption' => 'LNK', //'SMS', 'EML', or 'ALL'
             'DisplayCurrencyIso' => 'EGP',
@@ -46,7 +46,7 @@ class FatoorahController extends Controller
        
        $paymentStatus= $this->fatoorahServices->getPaymentStatus($data);
 
-       //save invoice in db
+       //save appointment in db
         
         return ApiTrait::SuccessMessage('Payment happened successfully');
     }

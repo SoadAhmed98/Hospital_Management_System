@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Invoice;
 use App\Traits\ApiTrait;
 use App\Livewire\CreateGroupServices;
 use Illuminate\Support\Facades\Route;
@@ -12,9 +13,11 @@ use App\Http\Controllers\Api\APIDepartmentController;
 use App\Http\Controllers\DiseasePredictionController;
 use App\Http\Controllers\Api\ApiAppointmentController;
 use App\Http\Controllers\Api\PatientInvoiceController;
+use App\Http\Controllers\Api\InvoiceFatoorahController;
 use App\Http\Controllers\Api\APIGroupInvoicesController;
 use App\Http\Controllers\Api\APISingleInvoiceController;
 use App\Http\Controllers\Api\APISingleServiceController;
+use App\Http\Controllers\Api\AppointmentFatoorahController;
 use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\PasswordController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
@@ -65,22 +68,30 @@ Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
     });
     /***************************** end patient auth **************************/
 
-    /****************************** fatoorah payment ***************************************/
+    /******************************  fatoorah payment ***************************************/
     Route::group(['middleware'=>['auth:sanctum','Verified']],function () {
-        Route::post('/payment',[FatoorahController::class,'payment']);
+        Route::post('/invoice-payment',[InvoiceFatoorahController::class,'payment']);
+        // Route::post('/appointment-payment',[AppointmentFatoorahController::class,'payment']);
     });
 
 
   
 });
+//callback for invoice payment
+Route::group(['controller'=>InvoiceFatoorahController::class,'prefix'=>'patient'],function ()  {
 
-Route::group(['controller'=>FatoorahController::class,'prefix'=>'patient'],function ()  {
+    Route::get('/invoice-payment-callback','PaymentCallback');
 
-    Route::get('/payment-callback','PaymentCallback');
-
-    Route::get('/payment-error','PaymentError');
+    Route::get('/invoice-payment-error','PaymentError');
 });
-   
+
+// callback for appointment
+// Route::group(['controller'=>AppointmentFatoorahController::class,'prefix'=>'patient'],function ()  {
+
+//     Route::get('/appointment-payment-callback','PaymentCallback');
+
+//     Route::get('/appointment-payment-error','PaymentError');
+// });
  /****************************** end fatoorah payment ***************************************/
 
 Route::get('patients/{patientId}/invoices', [PatientInvoiceController::class, 'index']);
