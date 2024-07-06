@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\Api\ApiAppointmentController;
+use App\Traits\ApiTrait;
 use App\Livewire\CreateGroupServices;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\FatoorahController;
 use App\Http\Controllers\Api\APIDoctorsController;
 use App\Http\Controllers\Api\APIPatientController;
 use App\Http\Controllers\Api\APIPaymentController;
 use App\Http\Controllers\Api\APIReceiptController;
 use App\Http\Controllers\Api\APIDepartmentController;
 use App\Http\Controllers\DiseasePredictionController;
+use App\Http\Controllers\Api\ApiAppointmentController;
 use App\Http\Controllers\Api\PatientInvoiceController;
 use App\Http\Controllers\Api\APIGroupInvoicesController;
 use App\Http\Controllers\Api\APISingleInvoiceController;
@@ -37,9 +39,10 @@ Route::get('groupservices/{id}', function ($id) {
     $component = app()->make(CreateGroupServices::class);
     return $component->getGroupService($id);
 });
-/****************************** patient auth ***************************************/
+/****************************** patient api ***************************************/
 Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
-  
+
+  /***************************** patient auth **************************/
     //register
     Route::post('/register',RegisterController::class); //guest
     
@@ -60,8 +63,25 @@ Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
         Route::post('/check-email','checkEmail');
         Route::middleware(['auth:sanctum','Verified'])->post('/set-new-password','setNewPassword');
     });
+    /***************************** end patient auth **************************/
+
+    /****************************** fatoorah payment ***************************************/
+    Route::group(['middleware'=>['auth:sanctum','Verified']],function () {
+        Route::post('/payment',[FatoorahController::class,'payment']);
+    });
+
+
+  
 });
 
+Route::group(['controller'=>FatoorahController::class,'prefix'=>'patient'],function ()  {
+
+    Route::get('/payment-callback','PaymentCallback');
+
+    Route::get('/payment-error','PaymentError');
+});
+   
+ /****************************** end fatoorah payment ***************************************/
 
 Route::get('patients/{patientId}/invoices', [PatientInvoiceController::class, 'index']);
 Route::get('patients/{patientId}/invoices/review', [PatientInvoiceController::class, 'reviewInvoices']);
