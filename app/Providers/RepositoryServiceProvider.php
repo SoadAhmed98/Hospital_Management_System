@@ -3,54 +3,54 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Interfaces\Departments\DepartmentRepositoryInterface;
-use App\Repository\Departments\DepartmentRepository;
-
-use App\Interfaces\Departments\DepartmentAPIRepositoryInterface;
-use App\Repository\Departments\DepartmentAPIRepository;
-
-
-use App\Interfaces\Patients\PatientRepositoryInterface;
-use App\Repository\Patients\PatientRepository;
-
-use App\Interfaces\Patients\PatientAPIRepositoryInterface;
-use App\Repository\Patients\PatientAPIRepository;
-
+use App\Repository\Doctors\DoctorRepository;
 use App\Repository\Finance\PaymentRepository;
-use App\Interfaces\Finance\PaymentRepositoryInterface;
-
-use App\Repository\Finance\PaymentAPIRepository;
-use App\Interfaces\Finance\PaymentAPIRepositoryInterface;
 
 use App\Repository\Finance\ReceiptRepository;
-use App\Interfaces\Finance\ReceiptRepositoryInterface;
+use App\Repository\Patients\PatientRepository;
+
+
+use App\Repository\Doctors\DoctorAPIRepository;
+use App\Repository\Finance\PaymentAPIRepository;
 
 use App\Repository\Finance\ReceiptAPIRepository;
-use App\Interfaces\Finance\ReceiptAPIRepositoryInterface;
+use App\Repository\Patients\PatientAPIRepository;
+
+use App\Repository\Departments\DepartmentRepository;
+use App\Repository\Services\SingleServiceRepository;
 
 use App\Interfaces\Doctors\DoctorRepositoryInterface;
-use App\Repository\Doctors\DoctorRepository;
-use App\Interfaces\Doctors\DoctorAPIRepositoryInterface;
-use App\Repository\Doctors\DoctorAPIRepository;
-use App\Interfaces\Services\SingleServiceRepositoryInterface;
-use App\Repository\Services\SingleServiceRepository;
-use App\Interfaces\Services\SingleServiceAPIRepositoryInterface;
-use App\Repository\Services\SingleServiceAPIRepository;
-use App\Interfaces\Appointmentes\AppointmentRepositoryInterface;
-use App\Repository\Appointmentes\AppointmentRepository;
-use App\Interfaces\Appointmentes\AppointmentAPIRepositoryInterface;
-use App\Repository\Appointmentes\AppointmentAPIRepository;
-use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
-use App\Repository\doctor_dashboard\InvoicesRepository;
+use App\Interfaces\Finance\PaymentRepositoryInterface;
 
-use App\Interfaces\doctor_dashboard\PatientHistoryRepositoryInterface;
+use App\Interfaces\Finance\ReceiptRepositoryInterface;
+use App\Interfaces\Patients\PatientRepositoryInterface;
+
+use App\Repository\Appointmentes\AppointmentRepository;
+use App\Repository\Departments\DepartmentAPIRepository;
+
+use App\Repository\doctor_dashboard\InvoicesRepository;
+use App\Repository\Services\SingleServiceAPIRepository;
+use App\Interfaces\Doctors\DoctorAPIRepositoryInterface;
+use App\Interfaces\Finance\PaymentAPIRepositoryInterface;
+use App\Interfaces\Finance\ReceiptAPIRepositoryInterface;
+use App\Interfaces\Patients\PatientAPIRepositoryInterface;
+use App\Repository\Appointmentes\AppointmentAPIRepository;
+use App\Repository\doctor_dashboard\LaboratoriesRepository;
+use App\Interfaces\Departments\DepartmentRepositoryInterface;
+use App\Interfaces\Services\SingleServiceRepositoryInterface;
 use App\Repository\doctor_dashboard\PatientHistoryRepository;
+use App\Interfaces\Appointmentes\AppointmentRepositoryInterface;
+use App\Interfaces\Departments\DepartmentAPIRepositoryInterface;
+use App\Interfaces\doctor_dashboard\InvoicesRepositoryInterface;
+
+use App\Interfaces\Services\SingleServiceAPIRepositoryInterface;
+use App\Interfaces\Appointmentes\AppointmentAPIRepositoryInterface;
 
 use App\Interfaces\doctor_dashboard\LaboratoriesRepositoryInterface;
-use App\Repository\doctor_dashboard\LaboratoriesRepository;
-
-use App\Interfaces\LaboratorieEmployee\LaboratorieEmployeeRepositoryInterface;
 use App\Repository\LaboratorieEmployee\LaboratorieEmployeeRepository;
+
+use App\Interfaces\doctor_dashboard\PatientHistoryRepositoryInterface;
+use App\Interfaces\LaboratorieEmployee\LaboratorieEmployeeRepositoryInterface;
 
 
 

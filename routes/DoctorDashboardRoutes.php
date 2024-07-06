@@ -10,11 +10,9 @@ use App\Http\Controllers\Doctor\PatientDetailsController;
 
 Route::group(
     [
-        // 'prefix' => LaravelLocalization::setLocale(),
+        'prefix' => 'doctor',
         'middleware' => ['auth:doctor']
     ], function(){
-
-        Route::prefix('doctor')->group(function () {
 
 
             //############################# completed_invoices route ##########################################
@@ -52,7 +50,7 @@ Route::group(
 
              //############################# end Laboratories route ######################################
 
-        });
+       
 
 });
 

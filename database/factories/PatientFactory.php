@@ -25,7 +25,7 @@ class PatientFactory extends Factory
             'address' => $this->faker->address,
             'password' => Hash::make($phone), // Hash the phone number as the password
             'birth_date' => $this->faker->date(),
-            'gender' => $this->faker->randomElement(['mail', 'femail']),
+            'gender' => $this->faker->randomElement(['male', 'female']),
             'blood_group' => $this->faker->randomElement(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-']),
             'created_at' => now(),
             'updated_at' => now(),

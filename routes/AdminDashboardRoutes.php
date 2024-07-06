@@ -16,9 +16,9 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::group(
     [
-        // 'prefix' => LaravelLocalization::setLocale(),
+        'prefix' => 'admin',
 
-        // 'middleware' => [ 'auth:admin']
+        'middleware' => [ 'auth:admin']
 
     ], function(){
 

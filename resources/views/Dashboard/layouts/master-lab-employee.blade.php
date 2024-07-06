@@ -16,7 +16,7 @@
 			<img src="{{URL::asset('Dashboard/img/loader.svg')}}" class="loader-img" alt="Loader">
 		</div>
 		<!-- /Loader -->
-		@include('Dashboard.layouts.main-sidebar-lab-employee')
+		{{-- @include('Dashboard.layouts.main-sidebar-lab-employee') --}}
 		<!-- main-content -->
 		<div class="main-content app-content">
 			@include('Dashboard.layouts.main-header')

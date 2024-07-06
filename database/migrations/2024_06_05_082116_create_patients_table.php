@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address')->nullable(); // Add address field
             $table->string('password'); // Add password field
             $table->date('birth_date')->nullable();
-            $table->enum('gender', ['mail', 'femail'])->nullable();
+            $table->enum('gender', ['male', 'female'])->nullable();
             $table->enum('blood_group', ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])->nullable();
             $table->integer('code')->nullable();
             $table->timestamp('code_expired_at')->nullable();

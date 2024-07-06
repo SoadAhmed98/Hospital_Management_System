@@ -39,8 +39,6 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('doctor')->logout();
 
-        $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect()->route('doctor.login');

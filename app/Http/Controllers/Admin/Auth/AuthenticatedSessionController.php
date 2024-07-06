@@ -40,8 +40,6 @@ class AuthenticatedSessionController extends Controller
         // dd(auth()->user()->email);
         Auth::guard('admin')->logout();
 
-        $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');

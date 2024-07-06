@@ -24,7 +24,7 @@ class LoginController extends Controller
         if(! $patient->email_verified_at){
             return ApiTrait::Data(compact('patient'),'Patient Not Verified',401);
         }
-        return ApiTrait::Data(compact('patient'),'Admin Loggedin successfully');
+        return ApiTrait::Data(compact('patient'),'Patient Logged in successfully');
     }
 
     public function logout(Request $request)
