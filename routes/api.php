@@ -15,6 +15,9 @@ use App\Http\Controllers\Api\ApiAppointmentController;
 use App\Http\Controllers\Api\PatientInvoiceController;
 use App\Http\Controllers\Api\InvoiceFatoorahController;
 use App\Http\Controllers\Api\APIGroupInvoicesController;
+
+use App\Http\Controllers\Api\APIPatientDetailsController;
+
 use App\Http\Controllers\Api\APISingleInvoiceController;
 use App\Http\Controllers\Api\APISingleServiceController;
 use App\Http\Controllers\Api\AppointmentFatoorahController;
@@ -22,6 +25,10 @@ use App\Http\Controllers\Api\PatientAuth\LoginController;
 use App\Http\Controllers\Api\PatientAuth\PasswordController;
 use App\Http\Controllers\Api\PatientAuth\RegisterController;
 use App\Http\Controllers\Api\PatientAuth\EmailVerificationController;
+
+use App\Http\Controllers\Appointmentes\AppointmentController;
+use App\Http\Controllers\Api\APIPatientAccountsController;
+
 
 Route::post('/appointments', [ApiAppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
@@ -32,6 +39,8 @@ Route::apiResource('services', APISingleServiceController::class);
 Route::apiResource('patients', APIPatientController::class);
 Route::apiResource('payments', APIPaymentController::class);
 Route::apiResource('receipts', APIReceiptController::class);
+Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
+
 Route::apiResource('doctors', APIDoctorsController::class);
 Route::get('groupservices', function () {
     $component = app()->make(CreateGroupServices::class);
@@ -103,5 +112,10 @@ Route::apiResource('single-invoices', APISingleInvoiceController::class);
 Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'print']);
 
 Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
+
+Route::get('patient-details/{id}', [APIPatientDetailsController::class, 'index']);
+
+Route::get('/patient-accounts/{id}', [APIPatientAccountsController::class, 'show']);
+
 
 

@@ -96,11 +96,11 @@
                             @forelse(App\Models\Laboratorie::latest()->take(5)->get() as $invoice)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td class="tx-right tx-medium tx-inverse">{{ $invoice->created_at }}</td>
-                                    <td class="tx-right tx-medium tx-danger">{{ $invoice->patient->name }}</td>
-                                    <td class="tx-right tx-medium tx-inverse">{{ $invoice->doctor->name }}</td>
-                                    <td class="tx-right tx-medium tx-danger">{{ $invoice->description }}</td>
-                                    <td class="tx-right tx-medium tx-inverse">
+                                    <td class="tx-left tx-medium tx-inverse">{{ $invoice->created_at }}</td>
+                                    <td class="tx-left tx-medium tx-danger">{{ $invoice->patient->name }}</td>
+                                    <td class="tx-left tx-medium tx-inverse">{{ $invoice->doctor->name }}</td>
+                                    <td class="tx-left tx-medium tx-danger">{{ $invoice->description }}</td>
+                                    <td class="tx-left tx-medium tx-inverse">
                                         @if($invoice->case == 0)
                                             <span class="badge badge-danger">In Process</span>
                                         @else

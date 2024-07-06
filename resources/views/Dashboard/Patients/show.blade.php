@@ -10,8 +10,8 @@
     <div class="breadcrumb-header justify-content-between">
         <div class="my-auto">
             <div class="d-flex">
-                <h4 class="content-title mb-0 my-auto">Pages</h4><span
-                    class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
+                <h4 class="content-title mb-0 my-auto">Pages</h4>
+                <span class="text-muted mt-1 tx-13 mr-2 mb-0">/ Empty</span>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
                     <div class="text-wrap">
                         <div class="example">
                             <div class="panel panel-primary tabs-style-1">
-                                <div class=" tab-menu-heading">
+                                <div class="tab-menu-heading">
                                     <div class="tabs-menu1">
                                         <!-- Tabs -->
                                         <ul class="nav panel-tabs main-nav-line">
@@ -37,7 +37,7 @@
                                             <li class="nav-item"><a href="#tab3" class="nav-link" data-toggle="tab">Payments</a>
                                             </li>
                                             <li class="nav-item"><a href="#tab4" class="nav-link" data-toggle="tab">Account Statement</a></li>
-                                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">Radiology</a>
+                                            <li class="nav-item"><a href="#tab5" class="nav-link" data-toggle="tab">History of Diagnosis</a>
                                             </li>
                                             <li class="nav-item"><a href="#tab6" class="nav-link" data-toggle="tab">Laboratory</a>
                                             </li>
@@ -204,7 +204,14 @@
                                                         <td class="alert alert-primary">{{ number_format($Debit = $Patient_accounts->sum('Debit'), 2) }}</td>
                                                         <td class="alert alert-primary">{{ number_format($credit = $Patient_accounts->sum('credit'), 2) }}</td>
                                                         <td class="alert alert-danger">
-                                                            <span class="text-danger"> {{$Debit - $credit}}   {{ $Debit-$credit > 0 ? 'Debit' :'Credit'}}</span>                                                        </td>
+                                                            @php
+                                                                $balance = $Debit - $credit;
+                                                            @endphp
+                                                            <span class="text-danger">
+                                                                {{ number_format($balance, 2) }}
+                                                                {{ abs($balance) < 0.01 ? 'Credit' : ($balance > 0 ? 'Debit' : 'Credit') }}
+                                                            </span>
+                                                        </td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -219,22 +226,75 @@
 
 
                                         <div class="tab-pane" id="tab5">
-                                            <p>praesentium voluptatum deleniti atque corrquas molestias excepturi sint
-                                                occaecati cupiditate non provident,</p>
-                                            <p class="mb-0">similique sunt in culpa qui officia deserunt mollitia animi,
-                                                id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-                                                expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
-                                                optio cumque nihil impedit quo minus id quod maxime placeat facere
-                                                possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+                                        <br>
+                                            <div class="vtimeline">
+                                                @foreach($patient_records as $patient_record)
+                                                    <div class="timeline-wrapper {{ $loop->iteration % 2 == 0 ? 'timeline-inverted' : '' }} timeline-wrapper-primary">
+                                                        <div class="timeline-badge"><i class="las la-check-circle"></i></div>
+                                                        <div class="timeline-panel">
+                                                            <div class="timeline-heading">
+                                                                <h6 class="timeline-title">Art Ramadani posted a status update</h6>
+                                                            </div>
+                                                            <div class="timeline-body">
+                                                                <p>{{$patient_record->diagnosis}}</p>
+                                                            </div>
+                                                            <div class="timeline-footer d-flex align-items-center flex-wrap">
+                                                                <i class="fas fa-user-md"></i>&nbsp;
+                                                                <span>{{$patient_record->Doctor->name}}</span>
+                                                                <span class="mr-auto"><i class="fe fe-calendar text-muted mr-1"></i>{{$patient_record->date}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endforeach
+                                            </div>
                                         </div>
                                         <div class="tab-pane" id="tab6">
-                                            <p>praesentium et quas molestias excepturi sint occaecati cupiditate non
-                                                provident,</p>
-                                            <p class="mb-0">similique sunt in culpa qui officia deserunt mollitia animi,
-                                                id est laborum et dolorum fuga. Et harum quidem rerum facilis est et
-                                                expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi
-                                                optio cumque nihil impedit quo minus id quod maxime placeat facere
-                                                possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+                                        
+                                                <!-- breadcrumb -->
+                                                <div class="breadcrumb-header justify-content-between">
+                                                    <div class="my-auto">
+                                                        <div class="d-flex">
+                                                            <h4 class="content-title mb-0 my-auto">Lab Reports</h4>
+                                                            <span class="text-muted mt-1 tx-13 mr-2 mb-0">
+                                                                / {{ optional($patient_Laboratories->first())->Patient->name ?? 'No Patient' }}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- breadcrumb -->
+                                                @if($patient_Laboratories->isEmpty())
+                                                    <div class="alert alert-info" role="alert">
+                                                        No lab tests have been performed for this patient.
+                                                    </div>
+                                                @else
+                                                    @foreach($patient_Laboratories as $laboratory)
+                                                        <div class="form-group">
+                                                            <label for="exampleFormControlTextarea1">Lab Technician Notes</label>
+                                                            <textarea readonly class="form-control" id="exampleFormControlTextarea1" rows="3">{{ $laboratory->description_employee }}</textarea>
+                                                        </div>
+                                                        <br><br>
+                                                        <!-- Gallery -->
+                                                        <div class="demo-gallery">
+                                                            <ul id="lightgallery" class="list-unstyled row row-sm pr-0">
+                                                                @foreach($laboratory->images as $image)
+                                                                    <li class="col-sm-6 col-lg-4" data-responsive="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" data-src="{{ URL::asset('Dashboard/img/Rays/'.$image->filename) }}">
+                                                                        <a href="#">
+                                                                            <img width="50px" height="350px" class="img-responsive" src="{{ URL::asset('Dashboard/img/laboratories/'.$image->filename) }}" alt="No Image">
+                                                                        </a>
+                                                                    </li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /Gallery -->
+                                                    @endforeach
+                                                @endif
+
+                                                <!-- row closed -->
+                                                </div>
+                                                <!-- Container closed -->
+                                                </div>
+                                                <!-- main-content closed -->
+
                                         </div>
                                     </div>
                                 </div>
@@ -245,9 +305,6 @@
                 </div>
             </div>
         </div>
-
-
-    </div>
     </div>
     <!-- /row -->
     </div>
