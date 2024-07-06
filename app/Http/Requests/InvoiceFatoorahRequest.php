@@ -30,8 +30,8 @@ class InvoiceFatoorahRequest extends FormRequest
             'tax_rate' => 'required|numeric',
             'type' => 'required|integer|in:1,2',
             'single_invoice' => 'required|boolean',
-            'single_id' => 'required_if:single_invoice,1|exists:single_services,id',
-            'group_id' => 'required_if:single_invoice,0|exists:group_services,id',
+            'single_id' => 'required_if:single_invoice,1|exists:services,id',
+            'group_id' => 'required_if:single_invoice,0|exists:groups,id',
         ];
     }
 }

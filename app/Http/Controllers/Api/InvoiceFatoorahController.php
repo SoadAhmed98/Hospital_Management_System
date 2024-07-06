@@ -23,7 +23,11 @@ class InvoiceFatoorahController extends Controller
         $patient = Auth::guard('sanctum')->user();
         $patient = Patient::find($patient->id);
 
-        $validatedData = $request->validated();
+        $PaymentData = $request->only('CustomerName', 'CustomerEmail','InvoiceValue');
+
+        $SingleInvoice=$request->only('doctor_id','single_id','type','discount_value','tax_rate');
+        $GroupInvoice=$request->only('doctor_id','group_id','type');
+        $InvoiceValue=$request->InvoiceValue;
 
         $additionalData = [
             'CallBackUrl'        => env('invoice_success_url'),
@@ -33,7 +37,7 @@ class InvoiceFatoorahController extends Controller
             'DisplayCurrencyIso' => 'EGP',
         ];
 
-        $data = array_merge($validatedData, $additionalData);
+        $data = array_merge($PaymentData, $additionalData);
 
       return  $this->fatoorahServices->sendPayment($data);
     }
