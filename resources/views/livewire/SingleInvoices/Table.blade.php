@@ -1,6 +1,6 @@
 <button class="btn btn-primary pull-right" wire:click="show_form_add" type="button">Add New Invoice</button><br><br>
 <div class="table-responsive">
-    <table class="table text-md-nowrap" id="example1" data-page-length="50" style="text-align: center">
+    <table class="table text-md-nowrap" id="example2" data-page-length="50" style="text-align: center">
         <thead>
         <tr>
             <th>#</th>
