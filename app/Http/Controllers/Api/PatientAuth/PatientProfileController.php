@@ -3,12 +3,15 @@ namespace App\Http\Controllers\Api\PatientAuth;
 
 use App\Models\Patient;
 use App\Traits\ApiTrait;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\PatientProfile\UpdatePictureRequest;
+use Illuminate\Support\Facades\Hash;
 use App\Http\Resources\PatientResource;
-use App\Traits\UploadTrait;
+use App\Http\Requests\PatientProfile\UpdatePhoneRequest;
+use App\Http\Requests\PatientProfile\ResetPasswordRequest;
+use App\Http\Requests\PatientProfile\UpdatePictureRequest;
 
 class PatientProfileController extends Controller
 {
@@ -41,6 +44,39 @@ class PatientProfileController extends Controller
         } catch (\Exception $e) {
             return ApiTrait::ErrorMessage([], "{$e->getMessage()}", 500);
         }
+    }
+
+    public function chagePhoneNumber(UpdatePhoneRequest $request)
+    {
+        try {
+            $patient = Patient::findOrFail(Auth::guard('sanctum')->id());
+    
+            // Check if the new phone number is the same as the current one
+            if ($patient->phone === $request->phone) {
+                return ApiTrait::ErrorMessage(['phone'=>'same phone number'], 'Nothing changed. The phone number is the same.', 400);
+            }
+    
+            // Update the phone number
+            $patient->update(['phone' => $request->phone]);
+    
+            return ApiTrait::Data(compact('patient'),'Phone Updated Successfully', 200);
+        } catch (\Exception $e) {
+            return ApiTrait::ErrorMessage([], 'Something Went Wrong', 500);
+        }
+    }
+    
+
+    public function ResetPassword(ResetPasswordRequest $request)
+    {
+        try{
+            $patient=Patient::findOrFail(Auth::guard('sanctum')->id());
+    
+            $patient->update(['password'=>Hash::make($request->password)]);
+            return ApiTrait::SuccessMessage('Password Updated Successfully',200);
+            }
+            catch(\Exception $e){
+                return ApiTrait::ErrorMessage([],'Some Thing Went Wrong', 500);
+            }
     }
 }
 

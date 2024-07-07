@@ -79,6 +79,8 @@ Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
     /********************************* patient profile ***************************************/
     Route::group(['middleware'=>['auth:sanctum','Verified'],'controller'=>PatientProfileController::class],function () {
         Route::post('/update-profile-picture','changePicture');
+        Route::post('/update-profile-phone','chagePhoneNumber');
+        Route::post('/update-profile-password','ResetPassword');
         
     });
     /**********************************end patient profile ***********************************/
