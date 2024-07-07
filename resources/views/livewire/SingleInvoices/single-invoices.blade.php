@@ -1,5 +1,5 @@
 <div>
-    @if ($catchError)
+     @if ($catchError)
         <div class="alert alert-danger" id="success-danger">
             <button type="button" class="close" data-dismiss="alert">x</button>
             {{ $catchError }}
@@ -8,9 +8,11 @@
     @if ($InvoiceSaved)
         <div class="alert alert-info">Data saved successfully.</div>
     @endif
+
     @if ($InvoiceUpdated)
         <div class="alert alert-info">Data updated successfully.</div>
     @endif
+
     @if($show_table)
         @include('livewire.SingleInvoices.Table')
     @else
@@ -25,8 +27,8 @@
                             <option value="{{ $Patient->id }}">{{ $Patient->name }}</option>
                         @endforeach
                     </select>
-                    @error('patient_id') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
+
                 <div class="col">
                     <label>Doctor Name</label>
                     <select wire:model="doctor_id" wire:change="get_department" class="form-control" id="exampleFormControlSelect1" required>
@@ -35,22 +37,23 @@
                             <option value="{{ $Doctor->id }}">{{ $Doctor->name }}</option>
                         @endforeach
                     </select>
-                    @error('doctor_id') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
+
                 <div class="col">
                     <label>Department</label>
                     <input wire:model="department_id" type="text" class="form-control" readonly>
                 </div>
+
                 <div class="col">
                     <label>Invoice Type</label>
-                    <select wire:model="type" class="form-control" {{ $updateMode == true ? 'disabled' : '' }}>
+                    <select wire:model="type" class="form-control" {{ $updateMode == true ? 'disabled' : ''}} >
                         <option value="">-- Select from list --</option>
                         <option value="1">Cash</option>
                         <option value="2">Deferred</option>
                     </select>
-                    @error('type') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
             </div><br>
+
             <div class="row row-sm">
                 <div class="col-xl-12">
                     <div class="card">
@@ -83,7 +86,6 @@
                                                     <option value="{{ $Service->id }}">{{ $Service->name }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('Service_id') <span class="text-danger">{{ $message }}</span> @enderror
                                         </td>
                                         <td><input wire:model="price" type="text" class="form-control" readonly></td>
                                         <td><input wire:model="discount_value" wire:change="calculateTotals" type="text" class="form-control"></td>
@@ -98,7 +100,9 @@
                     </div><!-- bd -->
                 </div>
             </div>
+
             <input class="btn btn-outline-success" type="submit" value="Confirm Data">
         </form>
     @endif
+
 </div>
