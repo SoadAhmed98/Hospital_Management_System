@@ -62,4 +62,18 @@ class Invoice extends Model
             'single' => $recentInvoicesSingleCount
         ];
     }
+
+    public static function getRecentInvoiceCount()
+    {
+        $recentInvoicesGroupCount = self::where('invoice_type', 2) // Adjust as per your database
+            ->count();
+
+        $recentInvoicesSingleCount = self::where('invoice_type', 1) // Adjust as per your database
+            ->count();
+
+        return [
+            'group' => $recentInvoicesGroupCount,
+            'single' => $recentInvoicesSingleCount
+        ];
+    }
 }
