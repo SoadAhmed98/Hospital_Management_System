@@ -230,10 +230,11 @@ class CreateGroupServices extends Component
     public function delete($id)
     {
         Group::destroy($id);
-        return redirect()->to('/Add_GroupServices');
+        return redirect()->to('admin/Add_GroupServices');
+
     }
 
-
+ 
     public function getAllGroupServices()
     {
         $groupServices = Group::with(['service_group' => function ($query) {

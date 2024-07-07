@@ -12,7 +12,6 @@
             </ul>
         </div>
     @endif
-
     @if ($show_table)
         @include('livewire.GroupServices.index')
     @else
