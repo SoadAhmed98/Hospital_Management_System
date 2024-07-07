@@ -1,13 +1,15 @@
 @extends('Dashboard.layouts.master')
+
 @section('css')
     <!-- Internal Select2 css -->
-    <link href="{{URL::asset('dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
-    <link href="{{URL::asset('Dashboard/plugins/select2/css/select2.min.css')}}" rel="stylesheet">
+    <link href="{{ URL::asset('dashboard/plugins/notify/css/notifIt.css') }}" rel="stylesheet"/>
+    <link href="{{ URL::asset('Dashboard/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endsection
 
 @section('title')
     Edit Payment Voucher
 @stop
+
 @section('page-header')
     <!-- breadcrumb -->
     <div class="breadcrumb-header justify-content-between">
@@ -19,46 +21,65 @@
     </div>
     <!-- breadcrumb -->
 @endsection
+
 @section('content')
-    @include('Dashboard.messages_alert')
-    <!-- row -->
+    <!-- Form -->
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('Payment.update', 'test') }}" method="post" autocomplete="off">
+                    <form action="{{ route('Payment.update', $payment_accounts->id) }}" method="post" autocomplete="off">
                         {{ method_field('patch') }}
                         {{ csrf_field() }}
                         <div class="pd-30 pd-sm-40 bg-gray-200">
+                            <!-- Patient Name -->
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-1">
                                     <label>Patient Name</label>
-                                    <input class="form-control" value="{{$payment_accounts->id}}" name="id" type="hidden">
+                                    <input class="form-control" value="{{ old('id', $payment_accounts->id) }}" name="id" type="hidden">
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <select name="patient_id" class="form-control select2" required>
+                                    <select name="patient_id" class="form-control select2 {{ $errors->has('patient_id') ? 'is-invalid' : '' }}" required>
                                         @foreach($Patients as $Patient)
-                                            <option value="{{$Patient->id}}" {{$payment_accounts->patient_id == $Patient->id ? 'selected':''}} >{{$Patient->name}}</option>
+                                            <option value="{{ $Patient->id }}" {{ old('patient_id', $payment_accounts->patient_id) == $Patient->id ? 'selected' : '' }}>{{ $Patient->name }}</option>
                                         @endforeach
                                     </select>
+                                    @if($errors->has('patient_id'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('patient_id') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
+                            <!-- Amount -->
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-1">
                                     <label>Amount</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" value="{{$payment_accounts->amount}}" name="credit" type="number">
+                                    <input class="form-control {{ $errors->has('credit') ? 'is-invalid' : '' }}" value="{{ old('credit', $payment_accounts->amount) }}" name="credit" type="number">
+                                    @if($errors->has('credit'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('credit') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
+                            <!-- Description -->
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-1">
                                     <label>Description</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <textarea class="form-control" name="description" rows="3">{{$payment_accounts->description}}</textarea>
+                                    <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" rows="3">{{ old('description', $payment_accounts->description) }}</textarea>
+                                    @if($errors->has('description'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('description') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
+                            <!-- Submit Button -->
                             <button type="submit" class="btn btn-main-primary pd-x-30 mg-r-5 mg-t-5">Submit</button>
                         </div>
                     </form>
@@ -66,26 +87,19 @@
             </div>
         </div>
     </div>
-    <!-- row closed -->
+    <!-- Form -->
 @endsection
+
 @section('js')
     <!--Internal  Notify js -->
-    <script src="{{URL::asset('dashboard/plugins/notify/js/notifIt.js')}}"></script>
-    <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script>
-    <!--Internal  Datepicker js -->
-    <script src="{{URL::asset('Dashboard/plugins/jquery-ui/ui/widgets/datepicker.js')}}"></script>
-    <!--Internal  jquery.maskedinput js -->
-    <script src="{{URL::asset('Dashboard/plugins/jquery.maskedinput/jquery.maskedinput.js')}}"></script>
-    <!--Internal  spectrum-colorpicker js -->
-    <script src="{{URL::asset('Dashboard/plugins/spectrum-colorpicker/spectrum.js')}}"></script>
-    <!-- Internal Select2.min js -->
-    <script src="{{URL::asset('Dashboard/plugins/select2/js/select2.min.js')}}"></script>
-    <!--Internal Ion.rangeSlider.min js -->
-    <script src="{{URL::asset('Dashboard/plugins/ion-rangeslider/js/ion.rangeSlider.min.js')}}"></script>
-    <!--Internal  jquery-simple-datetimepicker js -->
-    <script src="{{URL::asset('Dashboard/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js')}}"></script>
-    <!-- Ionicons js -->
-    <script src="{{URL::asset('Dashboard/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js')}}"></script>
-    <!-- Internal form-elements js -->
-    <script src="{{URL::asset('Dashboard/js/form-elements.js')}}"></script>
+    <script src="{{ URL::asset('dashboard/plugins/notify/js/notifIt.js') }}"></script>
+    <script src="{{ URL::asset('/plugins/notify/js/notifit-custom.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/jquery-ui/ui/widgets/datepicker.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/jquery.maskedinput/jquery.maskedinput.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/spectrum-colorpicker/spectrum.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/select2/js/select2.min.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/ion-rangeslider/js/ion.rangeSlider.min.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/amazeui-datetimepicker/js/amazeui.datetimepicker.min.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/plugins/jquery-simple-datetimepicker/jquery.simple-dtpicker.js') }}"></script>
+    <script src="{{ URL::asset('Dashboard/js/form-elements.js') }}"></script>
 @endsection
