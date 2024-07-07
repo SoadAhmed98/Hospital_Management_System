@@ -3,6 +3,16 @@
         <div class="alert alert-info">Data saved successfully.</div>
     @endif
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     @if ($show_table)
         @include('livewire.GroupServices.index')
     @else
@@ -12,11 +22,13 @@
             <div class="form-group">
                 <label>Group Name</label>
                 <input wire:model="name_group" type="text" name="name_group" class="form-control" required>
+                @error('name_group') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label>Notes</label>
                 <textarea wire:model="notes" name="notes" class="form-control" rows="5"></textarea>
+                @error('notes') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="card mt-4">
@@ -50,6 +62,7 @@
                                                         <option value="{{ $service->id }}">{{ $service->name }} ({{ number_format($service->price, 2) }})</option>
                                                     @endforeach
                                                 </select>
+                                                @error('GroupsItems.'.$index.'.service_id') <span class="text-danger">{{ $message }}</span> @enderror
                                             @endif
                                         </td>
                                         <td>
@@ -57,6 +70,7 @@
                                                 {{ $groupItem['quantity'] }}
                                             @else
                                                 <input type="number" name="GroupsItems[{{$index}}][quantity]" class="form-control" wire:model="GroupsItems.{{$index}}.quantity" />
+                                                @error('GroupsItems.'.$index.'.quantity') <span class="text-danger">{{ $message }}</span> @enderror
                                             @endif
                                         </td>
                                         <td>
@@ -83,12 +97,14 @@
                                 <td style="color: red">Discount Value</td>
                                 <td width="125">
                                     <input type="number" name="discount_value" class="form-control w-75 d-inline" wire:model="discount_value">
+                                    @error('discount_value') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                             </tr>
                             <tr>
                                 <td style="color: red">Tax Rate</td>
                                 <td>
                                     <input type="number" name="taxes" class="form-control w-75 d-inline" min="0" max="100" wire:model="taxes"> %
+                                    @error('taxes') <span class="text-danger">{{ $message }}</span> @enderror
                                 </td>
                             </tr>
                             <tr>

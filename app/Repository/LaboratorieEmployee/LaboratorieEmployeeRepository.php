@@ -19,38 +19,57 @@ class LaboratorieEmployeeRepository implements LaboratorieEmployeeRepositoryInte
     public function store($request)
     {
         try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:laboratory_employees|max:255',
+                'password' => 'required|string|min:8',
+            ]);
 
             $laboratorie_employee = new LaboratoryEmployee();
-            $laboratorie_employee->name = $request->name;
-            $laboratorie_employee->email = $request->email;
-            $laboratorie_employee->password = Hash::make($request->password);
+            $laboratorie_employee->name = $validatedData['name'];
+            $laboratorie_employee->email = $validatedData['email'];
+            $laboratorie_employee->password = Hash::make($validatedData['password']);
             $laboratorie_employee->save();
-            session()->flash('add');
-            return back();
 
-        }
-        catch (\Exception $e) {
+            session()->flash('add', 'Employee added successfully.');
+
+            return back();
+        } catch (ValidationException $e) {
+            throw $e; // Let Laravel handle validation exceptions
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 
     public function update($request, $id)
     {
-        $input = $request->all();
-
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
+        try {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:laboratory_employees,email,' . $id,
+                'password' => 'nullable|string|min:8',
+            ]);
+    
+            $laboratorie_employee = LaboratoryEmployee::find($id);
+            $laboratorie_employee->name = $validatedData['name'];
+            $laboratorie_employee->email = $validatedData['email'];
+    
+            // Update password only if provided
+            if (!empty($validatedData['password'])) {
+                $laboratorie_employee->password = Hash::make($validatedData['password']);
+            }
+    
+            $laboratorie_employee->save();
+    
+            session()->flash('edit', 'Employee updated successfully.');
+    
+            return redirect()->back();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
-        else{
-            $input = Arr::except($input, ['password']);
-        }
-
-        $ray_employee = LaboratoryEmployee::find($id);
-        $ray_employee->update($input);
-
-        session()->flash('edit');
-        return redirect()->back();
     }
+    
+
 
     public function destroy($id)
     {
