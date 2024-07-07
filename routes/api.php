@@ -30,17 +30,6 @@ use App\Http\Controllers\Appointmentes\AppointmentController;
 use App\Http\Controllers\Api\APIPatientAccountsController;
 use App\Http\Controllers\Api\PatientAuth\PatientProfileController;
 
-Route::post('/appointments', [ApiAppointmentController::class, 'store']);
-Route::apiResource('predict', DiseasePredictionController::class);
-
-Route::apiResource('departments', APIDepartmentController::class);
-Route::apiResource('services', APISingleServiceController::class);
-
-Route::apiResource('patients', APIPatientController::class);
-Route::apiResource('payments', APIPaymentController::class);
-Route::apiResource('receipts', APIReceiptController::class);
-Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
-
 Route::apiResource('doctors', APIDoctorsController::class);
 Route::get('groupservices', function () {
     $component = app()->make(CreateGroupServices::class);
@@ -51,6 +40,19 @@ Route::get('groupservices/{id}', function ($id) {
     $component = app()->make(CreateGroupServices::class);
     return $component->getGroupService($id);
 });
+Route::apiResource('predict', DiseasePredictionController::class);
+
+Route::apiResource('departments', APIDepartmentController::class);
+Route::apiResource('services', APISingleServiceController::class);
+
+Route::apiResource('patients', APIPatientController::class);
+
+Route::post('/appointments', [ApiAppointmentController::class, 'store']);
+Route::apiResource('payments', APIPaymentController::class);
+Route::apiResource('receipts', APIReceiptController::class);
+Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
+
+
 /****************************** patient api ***************************************/
 Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
 
