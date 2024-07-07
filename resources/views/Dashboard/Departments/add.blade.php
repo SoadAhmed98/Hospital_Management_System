@@ -7,21 +7,64 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('Departments.store') }}" method="post" autocomplete="off">
+            <form id="addDepartmentForm" autocomplete="off">
                 @csrf
                 <div class="modal-body">
-                    <label for="exampleInputPassword1">Department Name</label>
-                    <input type="text" name="name" class="form-control">
-                     <br>
-                    <label for="exampleInputPassword1">Department Description</label>
-                    <input type="text" name="description" class="form-control">
+                    <!-- Department Name -->
+                    <label for="name">Department Name</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                    <div class="invalid-feedback" id="nameError"></div>
+                    <br>
 
+                    <!-- Department Description -->
+                    <label for="description">Department Description</label>
+                    <input type="text" name="description" id="description" class="form-control">
+                    <div class="invalid-feedback" id="descriptionError"></div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" id="submitBtn" class="btn btn-primary">Submit</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('submitBtn').addEventListener('click', function() {
+        let form = document.getElementById('addDepartmentForm');
+        let formData = new FormData(form);
+        
+        fetch('{{ route('Departments.store') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value,
+                'Accept': 'application/json',
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.errors) {
+                if (data.errors.name) {
+                    document.getElementById('name').classList.add('is-invalid');
+                    document.getElementById('nameError').innerText = data.errors.name[0];
+                } else {
+                    document.getElementById('name').classList.remove('is-invalid');
+                    document.getElementById('nameError').innerText = '';
+                }
+                
+                if (data.errors.description) {
+                    document.getElementById('description').classList.add('is-invalid');
+                    document.getElementById('descriptionError').innerText = data.errors.description[0];
+                } else {
+                    document.getElementById('description').classList.remove('is-invalid');
+                    document.getElementById('descriptionError').innerText = '';
+                }
+            } else {
+                location.reload(); // Reload the page to reflect changes
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
