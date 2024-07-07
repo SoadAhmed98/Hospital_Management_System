@@ -43,7 +43,7 @@
                                 <label class="tx-gray-600">Invoice Information</label>
                                 <p class="invoice-info-row"><span>Invoice Date</span> <span>{{ Request::get('invoice_date') }}</span></p>
                                 <p class="invoice-info-row"><span>Doctor</span> <span>{{ Request::get('doctor_id') }}</span></p>
-                                <p class="invoice-info-row"><span>Section</span> <span>{{ Request::get('section_id') }}</span></p>
+                                <p class="invoice-info-row"><span>Department</span> <span>{{ Request::get('department_id') }}</span></p>
                             </div>
                         </div>
                         <div class="table-responsive mg-t-40">

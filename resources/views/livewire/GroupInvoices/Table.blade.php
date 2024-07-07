@@ -36,7 +36,7 @@
                 <td>
                     <button wire:click="edit({{ $group_invoice->id }})" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button>
                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_invoice" wire:click="delete({{ $group_invoice->id }})"><i class="fa fa-trash"></i></button>
-                    <a href="#" wire:click="print({{ $group_invoice->id }})" class="btn btn-primary btn-sm" target="_blank" title="Print Receipt"><i class="fas fa-print"></i></a>
+                    <button wire:click="print({{ $group_invoice->id }})" class="btn btn-primary btn-sm"><i class="fas fa-print"></i></button>
                 </td>
             </tr>
         @endforeach
