@@ -235,36 +235,41 @@
         </div>
 
     <!-- Second set of cards -->
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    @php
-                        $deferredCount = App\Models\Invoice::where('type', 2)->count();
-                        $cashCount = App\Models\Invoice::where('type', 1)->count();
-                    @endphp
+        <!-- Second set of cards -->
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            @php
+                $deferredCount = App\Models\Invoice::where('type', 2)->count();
+                $cashCount = App\Models\Invoice::where('type', 1)->count();
+                $totalInvoices = $deferredCount + $cashCount;
+                $deferredPercentage = $totalInvoices > 0 ? ($deferredCount / $totalInvoices) * 100 : 0;
+                $cashPercentage = $totalInvoices > 0 ? ($cashCount / $totalInvoices) * 100 : 0;
+            @endphp
 
-                    <div class="col-md-6">
-                        <div class="d-flex align-items-center pb-2">
-                            <p class="mb-0">Deferred Invoices</p>
-                        </div>
-                        <h4 class="font-weight-bold mb-2">{{ $deferredCount }}</h4>
-                        <div class="progress progress-style progress-sm">
-                            <div class="progress-bar bg-primary-gradient wd-{{ ($deferredCount / ($deferredCount + $cashCount)) * 100 }}p" role="progressbar" aria-valuenow="{{ ($deferredCount / ($deferredCount + $cashCount)) * 100 }}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+            <div class="col-md-6">
+                <div class="d-flex align-items-center pb-2">
+                    <p class="mb-0">Deferred Invoices</p>
+                </div>
+                <h4 class="font-weight-bold mb-2">{{ $deferredCount }}</h4>
+                <div class="progress progress-style progress-sm">
+                    <div class="progress-bar bg-primary-gradient" style="width: {{ $deferredPercentage }}%;" role="progressbar" aria-valuenow="{{ $deferredPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
 
-                    <div class="col-md-6 mt-4 mt-md-0">
-                        <div class="d-flex align-items-center pb-2">
-                            <p class="mb-0">Cash Invoices</p>
-                        </div>
-                        <h4 class="font-weight-bold mb-2">{{ $cashCount }}</h4>
-                        <div class="progress progress-style progress-sm">
-                            <div class="progress-bar bg-danger-gradient wd-{{ ($cashCount / ($deferredCount + $cashCount)) * 100 }}p" role="progressbar" aria-valuenow="{{ ($cashCount / ($deferredCount + $cashCount)) * 100 }}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </div>
+            <div class="col-md-6 mt-4 mt-md-0">
+                <div class="d-flex align-items-center pb-2">
+                    <p class="mb-0">Cash Invoices</p>
+                </div>
+                <h4 class="font-weight-bold mb-2">{{ $cashCount }}</h4>
+                <div class="progress progress-style progress-sm">
+                    <div class="progress-bar bg-danger-gradient" style="width: {{ $cashPercentage }}%;" role="progressbar" aria-valuenow="{{ $cashPercentage }}" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
     </div>
 </div>
 
