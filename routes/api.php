@@ -48,10 +48,14 @@ Route::apiResource('services', APISingleServiceController::class);
 Route::apiResource('patients', APIPatientController::class);
 
 Route::post('/appointments', [ApiAppointmentController::class, 'store']);
-Route::apiResource('payments', APIPaymentController::class);
-Route::apiResource('receipts', APIReceiptController::class);
-Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
 
+Route::group(['middleware'=>['auth:sanctum','Verified']],function () {
+
+    Route::apiResource('payments', APIPaymentController::class);
+    Route::apiResource('receipts', APIReceiptController::class);
+    Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
+
+});
 
 /****************************** patient api ***************************************/
 Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
@@ -112,19 +116,23 @@ Route::group(['controller'=>InvoiceFatoorahController::class,'prefix'=>'patient'
 // });
  /****************************** end fatoorah payment ***************************************/
 
-Route::get('patients/{patientId}/invoices', [PatientInvoiceController::class, 'index']);
-Route::get('patients/{patientId}/invoices/review', [PatientInvoiceController::class, 'reviewInvoices']);
-Route::get('patients/{patientId}/invoices/completed', [PatientInvoiceController::class, 'completedInvoices']);
+ Route::group(['middleware'=>['auth:sanctum','Verified']],function () {
+
+    Route::get('patients/{patientId}/invoices', [PatientInvoiceController::class, 'index']);
+    Route::get('patients/{patientId}/invoices/review', [PatientInvoiceController::class, 'reviewInvoices']);
+    Route::get('patients/{patientId}/invoices/completed', [PatientInvoiceController::class, 'completedInvoices']);
 
 
-Route::apiResource('single-invoices', APISingleInvoiceController::class);
-Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'print']);
+    Route::apiResource('single-invoices', APISingleInvoiceController::class);
+    Route::get('single-invoices/print/{id}', [APISingleInvoiceController::class, 'print']);
 
-Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
+    Route::apiResource('group-invoices', ApiGroupInvoicesController::class)->except(['create', 'edit']);
 
-Route::get('patient-details/{id}', [APIPatientDetailsController::class, 'index']);
+    Route::get('patient-details/{id}', [APIPatientDetailsController::class, 'index']);
 
-Route::get('/patient-accounts/{id}', [APIPatientAccountsController::class, 'show']);
+    Route::get('/patient-accounts/{id}', [APIPatientAccountsController::class, 'show']);
+
+});
 
 
 
