@@ -20,6 +20,7 @@ class CreateGroupServices extends Component
     public $show_table = true;
     public $updateMode = false;
     public $group_id;
+    public $group_service_id;
 
     // Define validation rules
     protected $rules = [
@@ -206,7 +207,7 @@ class CreateGroupServices extends Component
     {
         $this->show_table = false;
         $this->updateMode = true;
-        $group = Group::where('id', $id)->first();
+        $group = Group::with('service_group')->where('id', $id)->first();
         $this->group_id = $id;
 
         $this->reset('GroupsItems', 'name_group', 'notes');
@@ -227,13 +228,16 @@ class CreateGroupServices extends Component
         }
     }
 
-    public function delete($id)
-    {
-        Group::destroy($id);
-        return redirect()->to('admin/Add_GroupServices');
+    public function delete($id){
 
-    }
-
+        $this->group_service_id = $id;
+   
+       }
+   
+       public function destroy(){
+        Group::destroy($this->group_service_id);
+        return redirect()->route('Add_GroupServices');
+       }
  
     public function getAllGroupServices()
     {
@@ -243,7 +247,7 @@ class CreateGroupServices extends Component
         }])
         ->whereNotNull('name')
         ->get(['id', 'name', 'total_before_discount', 'discount_value', 'total_after_discount', 'tax_rate', 'total_with_tax', 'notes']);
-
+        
         return $groupServices;
     }
 
