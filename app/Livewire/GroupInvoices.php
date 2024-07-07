@@ -2,17 +2,18 @@
 
 namespace App\Livewire;
 
-use App\Models\Doctor;
-use App\Models\Patient;
 use App\Models\Group;
+use App\Models\Doctor;
+use App\Models\Invoice;
+use App\Models\Patient;
 use Livewire\Component;
 use App\Models\FundAccount;
 use App\Models\GroupInvoice;
+use App\Models\group_invoice;
 use App\Models\PatientAccount;
-use App\Models\single_invoice;
-use App\Models\Invoice;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class GroupInvoices extends Component
 {
@@ -20,11 +21,11 @@ class GroupInvoices extends Component
     public $show_table = true;
     public $tax_rate = 17;
     public $updateMode = false;
-    public $price,$patient_id,$doctor_id,$department_id,$type,$Group_id,$single_invoice_id,$catchError;
+    public $price,$patient_id,$doctor_id,$department_id,$type,$Group_id,$catchError;
     public $discount_value=0;
     public $tax_value = 0;
     public $total_with_tax = 0; 
-
+    public $group_invoice_id;
     public function mount()
     {
         $this->calculateTotals();
@@ -56,7 +57,7 @@ class GroupInvoices extends Component
 
     public function get_price()
     {
-        $this->price =Group::where('id', $this->Group_id)->first()->Total_with_tax;
+        $this->price =Group::where('id', $this->Group_id)->first()->Total_before_discount;
         $this->discount_value = Group::where('id', $this->Group_id)->first()->discount_value;
         $this->tax_rate = Group::where('id', $this->Group_id)->first()->tax_rate;
         $this->calculateTotals();
@@ -125,7 +126,7 @@ class GroupInvoices extends Component
                     $group_invoices->patient_id = $this->patient_id;
                     $group_invoices->doctor_id = $this->doctor_id;
                     $group_invoices->department_id = DB::table('departments')->where('name', $this->department_id)->first()->id;
-                    $group_invoices->Group_id = $this->ve_id;
+                    $group_invoices->Group_id = $this->Group_id;
                     $group_invoices->price = $this->price;
                     $group_invoices->discount_value = $this->discount_value;
                     $group_invoices->tax_rate = $this->tax_rate;
@@ -286,17 +287,17 @@ class GroupInvoices extends Component
 
     public function print($id)
     {
-        $single_invoice = Invoice::findorfail($id);
+        $group_invoice = Invoice::findorfail($id);
         return Redirect::route('group_Print_single_invoices',[
-            'invoice_date' => $single_invoice->invoice_date,
-            'doctor_id' => $single_invoice->Doctor->name,
-            'section_id' => $single_invoice->Section->name,
-            'Group_id' => $single_invoice->Group->name,
-            'type' => $single_invoice->type,
-            'price' => $single_invoice->price,
-            'discount_value' => $single_invoice->discount_value,
-            'tax_rate' => $single_invoice->tax_rate,
-            'total_with_tax' => $single_invoice->total_with_tax,
+            'invoice_date' => $group_invoice->invoice_date,
+            'doctor_id' => $group_invoice->Doctor->name,
+            'department_id' => $group_invoice->Department->name,
+            'Group_id' => $group_invoice->Group->name,
+            'type' => $group_invoice->type,
+            'price' => $group_invoice->price,
+            'discount_value' => $group_invoice->discount_value,
+            'tax_rate' => $group_invoice->tax_rate,
+            'total_with_tax' => $group_invoice->total_with_tax,
         ]);
 
     }

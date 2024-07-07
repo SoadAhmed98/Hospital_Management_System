@@ -81,7 +81,7 @@
                                         <th scope="row">1</th>
                                         <td>
                                             <select wire:model="Group_id" class="form-control" wire:change="get_price" id="exampleFormControlSelect1">
-                                                <option value="">-- Select Service --</option>
+                                                <option value="" disabled>-- Select Service --</option>
                                                 @foreach($Groups as $Group)
                                                     <option value="{{$Group->id}}">{{$Group->name}}</option>
                                                 @endforeach

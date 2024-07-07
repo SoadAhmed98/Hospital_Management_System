@@ -81,7 +81,7 @@
                                         <th scope="row">1</th>
                                         <td>
                                             <select wire:model="Service_id" class="form-control" wire:change="get_price" id="exampleFormControlSelect1">
-                                                <option value="">-- Select service --</option>
+                                                <option value="" disabled>-- Select service --</option>
                                                 @foreach($Services as $Service)
                                                     <option value="{{ $Service->id }}">{{ $Service->name }}</option>
                                                 @endforeach
@@ -91,7 +91,7 @@
                                         <td><input wire:model="discount_value" wire:change="calculateTotals" type="text" class="form-control"></td>
                                         <td><input wire:model="tax_rate" wire:change="calculateTotals" type="text" class="form-control"></td>
                                         <td><input type="text" class="form-control" value="{{ $tax_value }}" readonly></td>
-                                        <td><input type="text" class="form-control" value="{{ $total_with_tax }}" readonly></td>
+                                        <td><input type="text" class="form-control" value="{{$subtotal + $tax_value}}" readonly></td>
                                     </tr>
                                     </tbody>
                                 </table>

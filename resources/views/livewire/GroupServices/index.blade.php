@@ -21,7 +21,8 @@
                     <td>{{ $group->notes }}</td>
                     <td>
                         <button type="button" class="btn btn-primary btn-sm" wire:click="edit({{ $group->id }})" ><i class="fa fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger btn-sm" wire:click="delete({{ $group->id }})"><i class="fa fa-trash"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#delete_service" wire:click="delete({{ $group->id }})" ><i class="fa fa-trash"></i></button>
+
                     </td>
                 </tr>
             @endif
@@ -29,7 +30,7 @@
        
     </tbody>
 </table>
-
+@include('livewire.GroupServices.delete')
 </div>
 
 

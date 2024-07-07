@@ -48,4 +48,14 @@ class Patient extends Authenticatable
         return $this->morphOne(Image::class, 'imageable');
     }
 
+    public static function recentPatients($limit = 5)
+    {
+        return self::orderBy('created_at', 'desc')->take($limit)->get();
+    }
+
+    public function patientAccount()
+    {
+        return $this->hasMany(PatientAccount::class);
+    }
+
 }

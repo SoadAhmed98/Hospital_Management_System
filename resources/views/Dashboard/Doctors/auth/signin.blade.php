@@ -68,9 +68,9 @@
                                                     </div><button type="submit" class="btn btn-main-primary btn-block">Sign In</button>
                                                    
                                                 </form>
-                                                <div class="main-signin-footer mt-5">
+                                                {{-- <div class="main-signin-footer mt-5">
                                                     <p><a href="{{route('admin.password.request')}}">Forgot password?</a></p>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                             {{--form Doctor--}}
@@ -86,9 +86,9 @@
                                                     </div><button type="submit" class="btn btn-main-primary btn-block">Sign In</button>
                                                    
                                                 </form>
-                                                <div class="main-signin-footer mt-5">
+                                                {{-- <div class="main-signin-footer mt-5">
                                                     <p><a href="{{route('doctor.password.request')}}">Forgot password?</a></p>
-                                                </div>
+                                                </div> --}}
                                             </div>
 
                                                {{--form Laboratory Employee--}}
@@ -104,9 +104,9 @@
                                                     </div><button type="submit" class="btn btn-main-primary btn-block">Sign In</button>
                                                    
                                                 </form>
-                                                <div class="main-signin-footer mt-5">
+                                                {{-- <div class="main-signin-footer mt-5">
                                                     <p><a href="{{route('lab_employee.password.request')}}">Forgot password?</a></p>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>

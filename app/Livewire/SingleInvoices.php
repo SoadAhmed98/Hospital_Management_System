@@ -36,8 +36,9 @@ class SingleInvoices extends Component
             'single_invoices'=> Invoice::where('invoice_type',1)->get(),
             'Patients'=> Patient::all(),
             'Doctors'=> Doctor::all(),
-            'Services'=> Service::all()
-           
+            'Services'=> Service::all(),
+            'subtotal' => $Total_after_discount = ((is_numeric($this->price) ? $this->price : 0)) - ((is_numeric($this->discount_value) ? $this->discount_value : 0)),
+            'tax_value'=> $Total_after_discount * ((is_numeric($this->tax_rate) ? $this->tax_rate : 0) / 100)
         ]);
     }
 
@@ -74,10 +75,14 @@ class SingleInvoices extends Component
         $this->patient_id = $single_invoice->patient_id;
         $this->doctor_id = $single_invoice->doctor_id;
         $this->department_id = DB::table('departments')->where('id', $single_invoice->department_id)->first()->name;
-        $this->Service_id = $single_invoice->service_id;
+        $this->Service_id = $single_invoice->Service_id;
+        // dd($single_invoice,$single_invoice->Service_id);
         $this->price = $single_invoice->price;
         $this->discount_value = $single_invoice->discount_value;
         $this->type = $single_invoice->type;
+        $this->discount_value = $single_invoice->discount_value;
+        $this->tax_rate = $single_invoice->tax_rate;
+        $this->tax_value = $single_invoice->tax_value;
 
 
     }
