@@ -21,6 +21,10 @@ return new class extends Migration
             $table->string('consultation_fees')->nullable();
             $table->boolean('status')->default(1);
             $table->foreignId('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->string('expertise')->nullable();
+            $table->text('education')->nullable();
+            $table->text('experience')->nullable();
+            $table->string('profession')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

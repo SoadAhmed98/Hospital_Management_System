@@ -7,7 +7,8 @@ use App\Models\Patient;
 use App\Models\Invoice;
 use App\Models\PatientAccount;
 use App\Models\ReceiptAccount;
-
+use App\Models\PatientHistory;
+use App\Models\Laboratorie;
 
 use Illuminate\Support\Facades\Hash;
 
@@ -26,8 +27,10 @@ class PatientRepository implements PatientRepositoryInterface
         $invoices = Invoice::where('patient_id', $id)->get();
         $receipt_accounts = ReceiptAccount::where('patient_id', $id)->get();
         $Patient_accounts = PatientAccount::where('patient_id', $id)->get();
+        $patient_records = PatientHistory::where('patient_id',$id)->get();
+        $patient_Laboratories  = Laboratorie::where('patient_id',$id)->get();
 
-        return view('Dashboard.Patients.show', compact('Patient', 'invoices', 'Patient_accounts','receipt_accounts'));
+        return view('Dashboard.Patients.show', compact('Patient', 'invoices', 'Patient_accounts','receipt_accounts','patient_records','patient_Laboratories'));
 
     }
 
