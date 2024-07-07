@@ -68,6 +68,7 @@ Route::group(
            //#############################  GroupInvoices route ##########################################
 
            Route::view('GroupInvoices','livewire.GroupInvoices.index')->name('group_invoices');
+           Route::view('group_Print_single_invoices','livewire.GroupInvoices.print')->name('group_Print_single_invoices');
         
            //############################# end GroupInvoices route ##########################################
            

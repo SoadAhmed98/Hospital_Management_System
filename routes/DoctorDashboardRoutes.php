@@ -7,6 +7,7 @@ use App\Http\Controllers\Doctor\InvoiceController;
 use App\Http\Controllers\Doctor\LaboratorieController;
 use App\Http\Controllers\Doctor\PatientHistoryController;
 use App\Http\Controllers\Doctor\PatientDetailsController;
+use App\Http\Controllers\Doctor\DoctorDashboardController;
 
 Route::group(
     [
@@ -49,6 +50,12 @@ Route::group(
              Route::get('show_laboratorie/{id}', [InvoiceController::class,'showLaboratorie'])->name('show.laboratorie');
 
              //############################# end Laboratories route ######################################
+
+            // Route::resource('/doctor/dashboard',DoctorDashboardController::class);
+             // routes/web.php
+
+                Route::get('/dashboard/data', [DoctorDashboardController::class, 'getData'])->name('dashboard.data');
+
 
        
 
