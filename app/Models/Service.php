@@ -11,6 +11,11 @@ class Service extends Model
     // protected $table = 'Services';
 
     public $fillable= ['price','description','status','name'];
-
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'service_group')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
+    }
 }
                        

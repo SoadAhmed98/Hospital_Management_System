@@ -36,14 +36,21 @@ class CreateGroupServices extends Component
 
     public function render()
     {
-        $total = 0;
+        $subtotal = 0;
         foreach ($this->GroupsItems as $groupItem) {
             if ($groupItem['is_saved'] && $groupItem['service_price'] && $groupItem['quantity']) {
-                $total += $groupItem['service_price'] * $groupItem['quantity'];
+                $subtotal += $groupItem['service_price'] * $groupItem['quantity'];
             }
         }
 
-        $subtotal = $total - ((is_numeric($this->discount_value) ? $this->discount_value : 0));
+        // Ensure subtotal doesn't become negative when no services are present
+        $subtotal = max($subtotal, 0);
+
+        // Apply discount only if subtotal is greater than zero
+        if ($subtotal > 0) {
+            $subtotal -= (is_numeric($this->discount_value) ? $this->discount_value : 0);
+        }
+
         $total_with_tax = $subtotal * (1 + (is_numeric($this->taxes) ? $this->taxes : 0) / 100);
 
         return view('livewire.GroupServices.create-group-services', [
@@ -53,10 +60,10 @@ class CreateGroupServices extends Component
         ]);
     }
 
+
     public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
-        $this->render();
     }
 
     public function addService()
@@ -92,32 +99,30 @@ class CreateGroupServices extends Component
     }
 
     public function saveService($index)
-{
-    $this->resetErrorBag();
+    {
+        $this->resetErrorBag();
 
-    // Validate if service_id and quantity are provided
-    $rules = [
-        'GroupsItems.' . $index . '.service_id' => 'required',
-        'GroupsItems.' . $index . '.quantity' => 'required|numeric|min:1',
-    ];
+        // Validate if service_id and quantity are provided
+        $rules = [
+            'GroupsItems.' . $index . '.service_id' => 'required',
+            'GroupsItems.' . $index . '.quantity' => 'required|numeric|min:1',
+        ];
 
-    $this->validate($rules);
+        $this->validate($rules);
 
-    $product = $this->allServices->find($this->GroupsItems[$index]['service_id']);
-    $this->GroupsItems[$index]['service_name'] = $product->name;
-    $this->GroupsItems[$index]['service_price'] = $product->price;
-    $this->GroupsItems[$index]['is_saved'] = true;
-    $this->ServiceSaved = true; // Set ServiceSaved to true after saving
-}
+        $product = $this->allServices->find($this->GroupsItems[$index]['service_id']);
+        $this->GroupsItems[$index]['service_name'] = $product->name;
+        $this->GroupsItems[$index]['service_price'] = $product->price;
+        $this->GroupsItems[$index]['is_saved'] = true;
+        $this->ServiceSaved = true; // Set ServiceSaved to true after saving
+    }
 
 
     public function removeService($index)
     {
-        // Check if the item exists in the array before attempting to remove it
         if (isset($this->GroupsItems[$index])) {
-            // Unset the specific item
             unset($this->GroupsItems[$index]);
-            // Reindex the array to maintain proper indexing
+            // Reindex the array to maintain the correct indices
             $this->GroupsItems = array_values($this->GroupsItems);
         }
     }
@@ -195,7 +200,6 @@ class CreateGroupServices extends Component
             $this->ServiceSaved = false; // Ensure confirmation message is not shown on validation error
         }
     }
-    
 
     public function show_form_add()
     {
@@ -206,26 +210,28 @@ class CreateGroupServices extends Component
     {
         $this->show_table = false;
         $this->updateMode = true;
-        $group = Group::where('id', $id)->first();
+        $group = Group::findOrFail($id); // Using findOrFail to directly fetch the group
         $this->group_id = $id;
-
+        $this->subtotal=0;
+        // Reset form fields
         $this->reset('GroupsItems', 'name_group', 'notes');
         $this->name_group = $group->name;
         $this->notes = $group->notes;
-
         $this->discount_value = intval($group->discount_value);
         $this->ServiceSaved = false;
 
+        // Populate GroupItems with services and their quantities
         foreach ($group->service_group as $serviceGroup) {
             $this->GroupsItems[] = [
-                'service_id' => $serviceGroup->id,
-                'quantity' => $serviceGroup->pivot->quantity,
+                'service_id' => $serviceGroup->pivot->service_id, // Correctly access the pivot service_id
+                'quantity' => $serviceGroup->pivot->quantity, // Access the quantity from the pivot table
                 'is_saved' => true,
                 'service_name' => $serviceGroup->name,
                 'service_price' => $serviceGroup->price
             ];
         }
     }
+
 
     public function delete($id)
     {
@@ -256,5 +262,10 @@ class CreateGroupServices extends Component
         ->findOrFail($id);
 
         return $group;
+    }
+    public function cancel()
+    {
+        $this->show_table = true;
+        $this->resetInputFields();
     }
 }

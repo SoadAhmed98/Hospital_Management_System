@@ -12,6 +12,8 @@ class Group extends Model
     public $timestamps = false;
     public function service_group()
     {
-        return $this->belongsToMany(Service::class,'service_group');
+        return $this->belongsToMany(Service::class, 'service_group')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
     }
 }

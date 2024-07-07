@@ -12,6 +12,7 @@
             </ul>
         </div>
     @endif
+
     @if ($show_table)
         @include('livewire.GroupServices.index')
     @else
@@ -20,7 +21,7 @@
 
             <div class="form-group">
                 <label>Group Name</label>
-                <input wire:model="name_group" type="text" name="name_group" class="form-control" required>
+                <input wire:model="name_group" type="text" name="name_group" class="form-control">
                 @error('name_group') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
 
