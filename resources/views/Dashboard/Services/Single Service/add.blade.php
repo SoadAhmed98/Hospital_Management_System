@@ -1,4 +1,3 @@
-<!-- Modal -->
 <div class="modal fade" id="add" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -13,13 +12,24 @@
                 @csrf
                 <div class="modal-body">
                     <label for="name">{{trans('Services.name')}}</label>
-                    <input type="text" name="name" id="name" class="form-control" ><br>
+                    <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}">
+                    @error('name')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <br>
 
                     <label for="price">{{trans('Services.price')}}</label>
-                    <input type="number" name="price" id="price" class="form-control"><br>
+                    <input type="number" name="price" id="price" class="form-control" value="{{ old('price') }}">
+                    @error('price')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    <br>
 
                     <label for="description">{{trans('Services.description')}}</label>
-                    <textarea class="form-control" name="description" id="description" rows="5"></textarea>
+                    <textarea class="form-control" name="description" id="description" rows="5">{{ old('description') }}</textarea>
+                    @error('description')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <div class="modal-footer">

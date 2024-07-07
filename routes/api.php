@@ -28,7 +28,7 @@ use App\Http\Controllers\Api\PatientAuth\EmailVerificationController;
 
 use App\Http\Controllers\Appointmentes\AppointmentController;
 use App\Http\Controllers\Api\APIPatientAccountsController;
-
+use App\Http\Controllers\Api\PatientAuth\PatientProfileController;
 
 Route::post('/appointments', [ApiAppointmentController::class, 'store']);
 Route::apiResource('predict', DiseasePredictionController::class);
@@ -76,7 +76,14 @@ Route::prefix('patient')->middleware('AcceptTypeJson')->group(function(){
         Route::middleware(['auth:sanctum','Verified'])->post('/set-new-password','setNewPassword');
     });
     /***************************** end patient auth **************************/
-
+    /********************************* patient profile ***************************************/
+    Route::group(['middleware'=>['auth:sanctum','Verified'],'controller'=>PatientProfileController::class],function () {
+        Route::post('/update-profile-picture','changePicture');
+        Route::post('/update-profile-phone','chagePhoneNumber');
+        Route::post('/update-profile-password','ResetPassword');
+        
+    });
+    /**********************************end patient profile ***********************************/
     /******************************  fatoorah payment ***************************************/
     Route::group(['middleware'=>['auth:sanctum','Verified']],function () {
         Route::post('/invoice-payment',[InvoiceFatoorahController::class,'payment']);

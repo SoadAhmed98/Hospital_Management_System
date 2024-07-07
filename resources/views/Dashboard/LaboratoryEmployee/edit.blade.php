@@ -1,6 +1,5 @@
-<!-- Modal -->
-<div class="modal fade" id="edit{{ $laboratorie_employee->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<!-- Edit Modal -->
+<div class="modal fade" id="edit{{ $laboratorie_employee->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,16 +9,16 @@
                 </button>
             </div>
             <form action="{{ route('laboratorie_employee.update', $laboratorie_employee->id) }}" method="post">
-                {{ method_field('patch') }}
-                {{ csrf_field() }}
+                {{ method_field('PATCH') }}
+                @csrf
                 <div class="modal-body">
                     <label for="name">Name</label>
-                    <input type="text" value="{{ $laboratorie_employee->name }}" name="name" class="form-control"><br>
+                    <input type="text" value="{{ $laboratorie_employee->name }}" name="name" class="form-control" required><br>
 
                     <label for="email">Email</label>
-                    <input type="email" value="{{ $laboratorie_employee->email }}" name="email" class="form-control"><br>
+                    <input type="email" value="{{ $laboratorie_employee->email }}" name="email" class="form-control" required><br>
 
-                    <label for="password">Password</label>
+                    <label for="password">New Password (optional)</label>
                     <input type="password" name="password" class="form-control" autocomplete="new-password">
                 </div>
                 <div class="modal-footer">

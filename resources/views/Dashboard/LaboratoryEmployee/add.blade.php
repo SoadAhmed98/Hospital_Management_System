@@ -12,13 +12,20 @@
                 @csrf
                 <div class="modal-body">
                     <label for="name">Name</label>
-                    <input type="text" name="name" class="form-control" id="name"><br>
+                    <input type="text" name="name" class="form-control" id="name" value="{{ old('name') }}"><br>
 
                     <label for="email">Email</label>
-                    <input type="email" name="email" class="form-control" id="email"><br>
+                    <input type="email" name="email" class="form-control" id="email" value="{{ old('email') }}"><br>
 
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" id="password"><br>
+                    
+                    @error('name')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
+                    @error('email')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

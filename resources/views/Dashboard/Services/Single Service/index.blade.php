@@ -3,7 +3,7 @@
     {{trans('main-sidebar_trans.Single_service')}}
 @stop
 @section('css')
-    <!--Internal   Notify -->
+    <!--Internal Notify -->
     <link href="{{URL::asset('dashboard/plugins/notify/css/notifIt.css')}}" rel="stylesheet"/>
 @endsection
 @section('page-header')
@@ -102,4 +102,15 @@
 @section('js')
     <script src="{{URL::asset('dashboard/plugins/notify/js/notifIt.js')}}"></script>
     <script src="{{URL::asset('/plugins/notify/js/notifit-custom.js')}}"></script>
+    <script>
+        $(document).ready(function () {
+            @if ($errors->any())
+                @if (old('id'))
+                    $('#edit' + {{ old('id') }}).modal('show');
+                @else
+                    $('#add').modal('show');
+                @endif
+            @endif
+        });
+    </script>
 @endsection
