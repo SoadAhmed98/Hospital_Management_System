@@ -1,63 +1,71 @@
 <?php
-
 namespace App\Traits;
 
 use App\Models\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-trait UploadTrait{
+trait UploadTrait {
 
-    public function verifyAndStoreImage(Request $request, $inputname , $foldername , $disk, $imageable_id, $imageable_type) {
+    public function verifyAndStoreImage(Request $request, $inputname, $foldername, $disk, $imageable_id, $imageable_type) {
 
-        if( $request->hasFile( $inputname ) ) {
+        if ($request->hasFile($inputname)) {
 
-            // Check img
+            // Check if the image is valid
             if (!$request->file($inputname)->isValid()) {
-                flash('Invalid Image!')->error()->important();
-                return redirect()->back()->withInput();
+                // Handle the error, e.g., by throwing an exception
+                throw new \Exception('Invalid Image!');
             }
 
             $photo = $request->file($inputname);
-            $name = \Str::slug($request->input('name'));
-            $filename = $name. '.' . $photo->getClientOriginalExtension();
+            $extension = $photo->getClientOriginalExtension();
+            $allowed_extensions = ['png', 'jpg', 'jpeg'];
 
-            // insert Image
-            $Image = new Image();
-            $Image->filename = $filename;
-            $Image->imageable_id = $imageable_id;
-            $Image->imageable_type = $imageable_type;
-            $Image->save();
+            // Check if the file extension is allowed
+            if (!in_array($extension, $allowed_extensions)) {
+                // Handle the error, e.g., by throwing an exception
+                throw new \Exception('Invalid Image Extension! Only png, jpg, and jpeg are allowed.');
+            }
+
+            $name = \Str::slug($request->input('name') ?? 'default_name');
+            $filename = $name . '.' . $extension;
+
+            // Insert Image
+            $image = new Image();
+            $image->filename = $filename;
+            $image->imageable_id = $imageable_id;
+            $image->imageable_type = $imageable_type;
+            $image->save();
+
             return $request->file($inputname)->storeAs($foldername, $filename, $disk);
         }
 
         return null;
-
     }
 
+    public function verifyAndStoreImageForeach($varforeach, $foldername, $disk, $imageable_id, $imageable_type) {
 
-    public function verifyAndStoreImageForeach($varforeach , $foldername , $disk, $imageable_id, $imageable_type) {
+        $extension = $varforeach->getClientOriginalExtension();
+        $allowed_extensions = ['png', 'jpg', 'jpeg'];
 
-        // insert Image
-        $Image = new Image();
-        $Image->filename = $varforeach->getClientOriginalName();
-        $Image->imageable_id = $imageable_id;
-        $Image->imageable_type = $imageable_type;
-        $Image->save();
+        // Check if the file extension is allowed
+        if (!in_array($extension, $allowed_extensions)) {
+            // Handle the error, e.g., by throwing an exception
+            throw new \Exception('Invalid Image Extension! Only png, jpg, and jpeg are allowed.');
+        }
+
+        // Insert Image
+        $image = new Image();
+        $image->filename = $varforeach->getClientOriginalName();
+        $image->imageable_id = $imageable_id;
+        $image->imageable_type = $imageable_type;
+        $image->save();
+
         return $varforeach->storeAs($foldername, $varforeach->getClientOriginalName(), $disk);
     }
 
-
-
-    public function Delete_attachment($disk,$path,$id){
-
+    public function Delete_attachment($disk, $path, $id) {
         Storage::disk($disk)->delete($path);
-        image::where('imageable_id',$id)->delete();
-
+        Image::where('imageable_id', $id)->delete();
     }
-
-
-
-
-
 }

@@ -17,7 +17,7 @@ class Patient extends Authenticatable
         'birth_date',
         'phone',
         'gender',
-        'blood_Group',
+        'blood_group',
         'address', 
         'code'
     ];
@@ -43,5 +43,9 @@ class Patient extends Authenticatable
         return $this->belongsTo(Invoice::class,'doctor_id');
     }
 
-    
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
 }
