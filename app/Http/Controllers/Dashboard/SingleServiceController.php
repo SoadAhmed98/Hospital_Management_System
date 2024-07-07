@@ -38,7 +38,6 @@ class SingleServiceController extends Controller
     public function store(StoreSingleServiceRequest $request)
     {
         return $this->SingleService->store($request);
-
     }
 
     /**
