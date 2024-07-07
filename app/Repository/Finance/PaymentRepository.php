@@ -30,47 +30,51 @@ class PaymentRepository implements PaymentRepositoryInterface
         return view('Dashboard.Payment.print',compact('payment_account'));
     }
 
-    public function store($request)
+    public function store( $request)
     {
+        $request->validate([
+            'patient_id' => 'required|exists:patients,id',
+            'credit' => 'required|numeric',
+            'description' => 'required|string|max:255',
+        ]);
+    
         DB::beginTransaction();
-
+    
         try {
-
             // store receipt_accounts
             $payment_accounts = new PaymentAccount();
-            $payment_accounts->date =date('y-m-d');
+            $payment_accounts->date = date('y-m-d');
             $payment_accounts->patient_id = $request->patient_id;
             $payment_accounts->amount = $request->credit;
             $payment_accounts->description = $request->description;
             $payment_accounts->save();
-
+    
             // store fund_accounts
             $fund_accounts = new FundAccount();
-            $fund_accounts->date =date('y-m-d');
+            $fund_accounts->date = date('y-m-d');
             $fund_accounts->Payment_id = $payment_accounts->id;
             $fund_accounts->credit = $request->credit;
             $fund_accounts->Debit = 0.00;
             $fund_accounts->save();
-
+    
             // store patient_accounts
             $patient_accounts = new PatientAccount();
-            $patient_accounts->date =date('y-m-d');
+            $patient_accounts->date = date('y-m-d');
             $patient_accounts->patient_id = $request->patient_id;
             $patient_accounts->Payment_id = $payment_accounts->id;
             $patient_accounts->Debit = $request->credit;
             $patient_accounts->credit = 0.00;
             $patient_accounts->save();
-
+    
             DB::commit();
             session()->flash('add');
             return redirect()->route('Payment.create');
-
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()])->withInput();
         }
     }
+    
 
     public function edit($id)
     {
@@ -81,6 +85,11 @@ class PaymentRepository implements PaymentRepositoryInterface
 
     public function update($request)
     {
+        $request->validate([
+            'patient_id' => 'required',
+            'credit' => 'required|numeric',
+            'description' => 'required', // Ensure description is required
+        ]);
         DB::beginTransaction();
 
         try {
@@ -112,7 +121,7 @@ class PaymentRepository implements PaymentRepositoryInterface
 
             DB::commit();
             session()->flash('edit');
-            return redirect()->route('Payment.index');
+            return redirect()->route('Payment.index')->with('success', 'Payment voucher updated successfully.');
 
         }
         catch (\Exception $e) {

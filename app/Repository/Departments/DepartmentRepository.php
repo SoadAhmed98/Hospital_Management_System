@@ -16,26 +16,47 @@ class DepartmentRepository implements DepartmentRepositoryInterface
 
     public function store($request)
     {
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
         Department::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
-
+    
         session()->flash('add');
-        return redirect()->route('Departments.index');
+        return response()->json(['success' => 'Department added successfully.']);
     }
+    
+
 
     public function update($request)
     {
+        $validator = \Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'required|string|max:255',
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+    
         $department = Department::findOrFail($request->id);
         $department->update([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
+    
         session()->flash('edit');
-        return redirect()->route('Departments.index');
+        return response()->json(['success' => 'Department updated successfully.']);
     }
-
+    
 
     public function destroy($request)
     {
