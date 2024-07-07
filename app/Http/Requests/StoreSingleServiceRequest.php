@@ -21,21 +21,23 @@ class StoreSingleServiceRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-        return [
-            'name' => 'required|unique:services,name,' . $this->id,
-            'price' => 'numeric|required',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'name.required' => trans('validation.required'),
-            'name.unique' => trans('validation.unique'),
-            'price.required' => trans('validation.required'),
-            'price.numeric' => trans('validation.numeric'),
-        ];
-    }
+    
+     public function rules()
+     {
+         return [
+             'name' => 'required|string|max:255',
+             'price' => 'required|numeric|min:0',
+             'description' => 'required|string',
+         ];
+     }
+ 
+     public function messages()
+     {
+         return [
+             'name.required' => 'The name field is required.',
+             'price.required' => 'The price field is required.',
+             'price.numeric' => 'The price must be a number.',
+             'description.required' => 'The description field is required.',
+         ];
+     }
 }
