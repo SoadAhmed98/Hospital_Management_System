@@ -47,10 +47,10 @@ Route::apiResource('services', APISingleServiceController::class);
 
 Route::apiResource('patients', APIPatientController::class);
 
-Route::post('/appointments', [ApiAppointmentController::class, 'store']);
 
 Route::group(['middleware'=>['auth:sanctum','Verified']],function () {
 
+    Route::post('/appointments', [ApiAppointmentController::class, 'store']);
     Route::apiResource('payments', APIPaymentController::class);
     Route::apiResource('receipts', APIReceiptController::class);
     Route::get('receipts/patient/{patientId}', [APIReceiptController::class, 'getReceiptsByPatient']);
