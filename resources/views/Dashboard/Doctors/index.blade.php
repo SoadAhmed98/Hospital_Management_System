@@ -29,6 +29,12 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+    @if(session('success'))
+    <div class="alert alert-success" role="alert">
+        {{ session('success') }}
+    </div>
+    @endif
+    @include('Dashboard.messages_alert')
     <!-- row opened -->
     <div class="row row-sm">
         <!--div-->

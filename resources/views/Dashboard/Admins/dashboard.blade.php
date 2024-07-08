@@ -133,10 +133,10 @@
                         $latestAccount = $patient->patientAccount->first();
                         $statusClass = ($latestAccount && $latestAccount->debit < $latestAccount->credit) ? 'text-success' : 'text-danger';
                         $statusLabel = ($latestAccount && $latestAccount->debit < $latestAccount->credit) ? 'Paid' : 'Pending';
-                    @endphp
+                  @endphp
                     <div class="list-group-item list-group-item-action" href="#">
                         <div class="media mt-0">
-                            <img class="avatar-lg rounded-circle ml-3 my-auto" src="{{ URL::asset('Dashboard/img/faces/placeholder.jpg') }}" alt="Image description">
+                            
                             <div class="media-body">
                                 <div class="d-flex align-items-center">
                                     <div class="mt-0">

@@ -74,8 +74,12 @@
                                         {{trans('doctors.name')}}</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" name="name" value="{{$doctor->name}}" type="text">
+                                    <input class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $doctor->name) }}" type="text">
+                                    @error('name')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                   @enderror
                                 </div>
+                               
                             </div>
 
                             <div class="row row-xs align-items-center mg-b-20">
@@ -84,8 +88,12 @@
                                         {{trans('doctors.email')}}</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" value="{{$doctor->email}}" name="email" type="email">
+                                    <input class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $doctor->email) }}" name="email" type="email">
+                                    @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                   @enderror
                                 </div>
+                              
                             </div>
 
 
@@ -95,9 +103,13 @@
                                         {{ trans('doctors.phone') }}</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" value="{{$doctor->phone}}" name="phone" type="tel">
+                                    <input class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone', $doctor->phone) }}" name="phone" type="tel">
+                                    @error('phone')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                     <input class="form-control" value="{{$doctor->id}}" name="id" type="hidden">
                                 </div>
+                               
                             </div>
 
                             <div class="row row-xs align-items-center mg-b-20">
@@ -106,8 +118,11 @@
                                         Fees</label>
                                 </div>
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" value="{{$doctor->consultation_fees}}" name="fees" type="text">
+                                    <input class="form-control @error('fee') is-invalid @enderror" value="{{ old('consultation_fees', $doctor->consultation_fees) }}" name="fees" type="text">
                                 </div>
+                                @error('fee')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                               @enderror
                             </div>
 
                             <div class="row row-xs align-items-center mg-b-20">
@@ -117,13 +132,19 @@
                                 </div>
 
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <select name="department_id" class="form-control SlectBox">
+                                    <select name="department_id" class="form-control SlectBox @error('department_id') is-invalid @enderror">
                                         @foreach($departments as $department)
-                                            <option
-                                                value="{{$department->id}}" {{$department->id == $doctor->department_id ? 'selected':"" }}>{{$department->name ,$doctor->department_id,$department->id}}</option>
+                                            <option value="{{ $department->id }}"
+                                                    {{ $department->id == old('department_id', $doctor->department_id) ? 'selected' : '' }}>
+                                                {{ $department->name }}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @error('department_id')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
+
 
                             </div>
 
@@ -134,21 +155,66 @@
                                 </div>
 
                                 <div class="col-md-11 mg-t-5 mg-md-t-0">
-                                    <select multiple="multiple" class="testselect2" name="workschedule[]">
+                                    <select multiple="multiple" class="testselect2 @error('workschedule') is-invalid @enderror" name="workschedule[]">
                                         @foreach($workschedule as $workday)
-                                            @php $check = []; @endphp
-                                            @foreach ($doctor->doctorworkschedule as $key => $workdays)
-                                                @php
-                                                    $check[] = $workdays->id;
-                                                @endphp
-                                            @endforeach
-                                            <option value="{{$workday->id}}" {{ in_array($workday->id, $check) ? 'selected' : '' }}>{{$workday->day}}</option>
+                                            @php $isSelected = in_array($workday->id, old('workschedule', $doctor->doctorworkschedule->pluck('id')->toArray()) ?? []); @endphp
+                                            <option value="{{$workday->id}}" {{ $isSelected ? 'selected' : '' }}>
+                                                {{$workday->day}}
+                                            </option>
                                         @endforeach
                                     </select>
+                                    @error('workschedule')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
 
                             </div>
-
+                            <!-- New Fields -->
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-1">
+                                    <label>Expertise</label>
+                                </div>
+                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                    <input class="form-control @error('expertise') is-invalid @enderror" name="expertise" value="{{ old('expertise', $doctor->expertise) }}" type="text">
+                                    @error('expertise')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-1">
+                                    <label>Education</label>
+                                </div>
+                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                    <textarea class="form-control @error('education') is-invalid @enderror" name="education">{{ old('education', $doctor->education) }}</textarea>
+                                    @error('education')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-1">
+                                    <label>Experience</label>
+                                </div>
+                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                    <textarea class="form-control @error('experience') is-invalid @enderror" name="experience">{{ old('experience', $doctor->experience) }}</textarea>
+                                    @error('experience')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="row row-xs align-items-center mg-b-20">
+                                <div class="col-md-1">
+                                    <label>Profession</label>
+                                </div>
+                                <div class="col-md-11 mg-t-5 mg-md-t-0">
+                                    <input class="form-control @error('profession') is-invalid @enderror" name="profession" value="{{ old('profession', $doctor->profession) }}" type="text">
+                                    @error('profession')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <!-- End New Fields -->
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-1">
                                     <label for="exampleInputEmail1">

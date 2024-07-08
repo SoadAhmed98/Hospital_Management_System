@@ -39,8 +39,15 @@ class DoctorController extends Controller
             'phone' => 'required|numeric|digits_between:10,15',
             'fees' => 'required|numeric|min:0',
             'name' => 'required|string|max:255',
+            'workschedule' => 'required|array|min:1', // Ensure at least one work schedule is selected
+            'workschedule.*' => 'exists:work_schedules,id',
+            'expertise' => 'required|string|max:255', 
+            'education' => 'required|string', 
+            'experience' => 'required|string', 
+            'profession' => 'required|string|max:255', 
         ]);
         return $this->Doctors->store($request);
+        return redirect()->route('doctors.index')->with('success', 'Doctor added successfully.');
     }
 
     
@@ -59,6 +66,20 @@ class DoctorController extends Controller
    
     public function update(Request $request)
     {
+        
+        $request->validate([
+            'email' => 'required|email|unique:doctors,email,'.$request->id,
+            'department_id' => 'required|exists:departments,id',
+            'phone' => 'required|numeric|digits_between:10,15',
+            'fees' => 'required|numeric|min:0',
+            'name' => 'required|string|max:255',
+            'workschedule' => 'required|array|min:1', // Ensure at least one work schedule is selected
+            'workschedule.*' => 'exists:work_schedules,id',
+            'expertise' => 'required|string|max:255', 
+            'education' => 'required|string', 
+            'experience' => 'required|string', 
+            'profession' => 'required|string|max:255', 
+        ]);
         return $this->Doctors->update($request);
     }
 

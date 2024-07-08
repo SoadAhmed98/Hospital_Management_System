@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
             DepartmentSeeder::class,
             WorkScheduleTableSeeder::class,
             DoctorSeeder::class,
+            PatientSeeder::class,
             ImageSeeder::class,
             ServiceSeeder::class,
-            PatientSeeder::class,
             LaboratoryEmployeeSeeder::class,
             GroupSeeder::class,
             ServiceGroupSeeder::class

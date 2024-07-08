@@ -19,7 +19,7 @@ class DoctorSeeder extends Seeder
      */
     public function run(): void
     {
-        Doctor::factory()->count(30)->create();
+        Doctor::factory()->count(4)->create();
         $now = Carbon::now();
         $departmentId = Department::all()->random()->id;
         DB::table('doctors')->insert(

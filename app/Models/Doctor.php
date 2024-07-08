@@ -11,8 +11,8 @@ class Doctor extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
 
-    public $fillable= ['email','email_verified_at','password','phone','consultation_fees','name','department_id','status'];
-   
+    // public $fillable= ['email','email_verified_at','password','phone','consultation_fees','name','department_id','status'];
+    protected $guarded=[];
      /**
      * Get the Doctor's image.
      */

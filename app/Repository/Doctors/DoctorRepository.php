@@ -23,7 +23,9 @@ class DoctorRepository implements DoctorRepositoryInterface
     public function create()
     {
         $departments = Department::all();
-        return view('Dashboard.Doctors.add', compact('departments'));
+        $workschedule = WorkSchedule::all();
+        return view('Dashboard.Doctors.add', compact('departments','workschedule'));
+       
     }
 
     public function store($request)
@@ -40,8 +42,14 @@ class DoctorRepository implements DoctorRepositoryInterface
             $doctor->consultation_fees = $request->fees;
             $doctor->status = 1;
             $doctor->name = $request->name;
+            $doctor->expertise = $request->expertise;
+            $doctor->education = $request->education;
+            $doctor->experience = $request->experience;
+            $doctor->profession = $request->profession;
             $doctor->save();
-    
+           // insert pivot tABLE
+           $doctor->doctorworkschedule()->attach($request->workschedule);
+
             Log::info('Doctor created successfully', ['doctor_id' => $doctor->id]);
             // dd($request->hasFile('photo'));
             // Upload image
@@ -86,6 +94,10 @@ class DoctorRepository implements DoctorRepositoryInterface
             $doctor->phone = $request->phone;
             $doctor->name = $request->name;
             $doctor->consultation_fees = $request->fees;
+            $doctor->expertise = $request->expertise;
+            $doctor->education = $request->education;
+            $doctor->experience = $request->experience;
+            $doctor->profession = $request->profession;
             $doctor->save();
 
             // update pivot tABLE
